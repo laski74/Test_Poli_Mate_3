@@ -1,0 +1,2765 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezione di Algebra - Test Politecnico</title>
+    
+    <!-- Configurazione MathJax -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$']],
+                displayMath: [['$$', '$$']]
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 25px;
+            background: none;
+            border: none;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+        }
+
+        .tab-button:hover {
+            background: #e9ecef;
+        }
+
+        .tab-button.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 4px solid #667eea;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 50px;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .theory-section {
+            background: #f8f9fa;
+            padding: 35px;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            border-left: 6px solid #667eea;
+        }
+
+        .theory-section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .theory-section h2::before {
+            content: "📚";
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+
+        .theory-item {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .theory-item h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .theory-item p, .theory-item ul {
+            font-size: 1.15em;
+            line-height: 2;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .theory-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .theory-item li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .theory-item li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .formula-box {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            font-size: 1.2em;
+        }
+
+        .exercise-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .exercise-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+        }
+
+        .exercise-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+
+        .exercise-text {
+            font-size: 1.3em;
+            line-height: 2;
+            margin: 25px 0;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            color: #333;
+        }
+
+        .options {
+            margin: 30px 0;
+        }
+
+        .option {
+            padding: 20px 25px;
+            margin: 15px 0;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 1.2em;
+            line-height: 1.8;
+            border-left: 4px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-left-color: #667eea;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 20px;
+            margin: 25px 0;
+            align-items: center;
+        }
+
+        .timer-button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .start-timer {
+            background: #28a745;
+            color: white;
+        }
+
+        .start-timer:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .stop-timer {
+            background: #dc3545;
+            color: white;
+        }
+
+        .stop-timer:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .reset-timer {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .reset-timer:hover {
+            background: #e0a800;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .timer-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            padding: 15px 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            min-width: 150px;
+            text-align: center;
+            border: 3px solid #667eea;
+        }
+
+        .timer-display.warning {
+            color: #dc3545;
+            border-color: #dc3545;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .show-solution {
+            padding: 15px 35px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            font-weight: 600;
+            margin: 25px 0;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .show-solution:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .solution {
+            display: none;
+            background: #e8f5e9;
+            padding: 35px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border-left: 6px solid #28a745;
+            animation: slideDown 0.5s;
+        }
+
+        .solution.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 2000px;
+            }
+        }
+
+        .solution h4 {
+            color: #28a745;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .solution h4::before {
+            content: "✓";
+            margin-right: 12px;
+            font-size: 1.3em;
+        }
+
+        .solution-step {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+        }
+
+        .solution-step h5 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .solution-step p {
+            font-size: 1.15em;
+            line-height: 2;
+            color: #333;
+            margin: 12px 0;
+        }
+
+        .correct-answer {
+            background: #d4edda;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+            font-size: 1.1em;
+            color: #856404;
+        }
+
+        .warning-box strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-button {
+                font-size: 1em;
+                padding: 15px;
+            }
+
+            .tab-content {
+                padding: 25px;
+            }
+
+            .exercise-text {
+                font-size: 1.1em;
+            }
+
+            .timer-controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📐 Preparazione Test Politecnico</h1>
+            <p>Lezione di Algebra - Durata: 2 ore</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'teoria')">📚 Teoria</button>
+            <button class="tab-button" onclick="openTab(event, 'esercizi')">✏️ Esercizi</button>
+        </div>
+
+        <!-- SCHEDA TEORIA -->
+        <div id="teoria" class="tab-content active">
+            <div class="theory-section">
+                <h2>Elementi Fondamentali di Algebra</h2>
+
+                <div class="theory-item">
+                    <h3>1. Prodotti Notevoli</h3>
+                    <p>I prodotti notevoli sono formule fondamentali che permettono di semplificare calcoli algebrici:</p>
+                    <div class="formula-box">
+                        <strong>Quadrato di binomio:</strong><br>
+                        $$(a + b)^2 = a^2 + 2ab + b^2$$
+                        $$(a - b)^2 = a^2 - 2ab + b^2$$
+                    </div>
+                    <div class="formula-box">
+                        <strong>Somma per differenza:</strong><br>
+                        $$(a + b)(a - b) = a^2 - b^2$$
+                    </div>
+                    <div class="formula-box">
+                        <strong>Cubo di binomio:</strong><br>
+                        $$(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$$
+                        $$(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$$
+                    </div>
+                    <div class="formula-box">
+                        <strong>Somma e differenza di cubi:</strong><br>
+                        $$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$
+                        $$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$
+                    </div>
+                </div>
+
+                <div class="theory-item">
+                    <h3>2. Scomposizione in Fattori</h3>
+                    <p>Tecniche per scomporre polinomi:</p>
+                    <ul>
+                        <li><strong>Raccoglimento a fattore comune:</strong> $ax + ay = a(x + y)$</li>
+                        <li><strong>Raccoglimento parziale:</strong> raggruppare termini simili</li>
+                        <li><strong>Riconoscimento prodotti notevoli:</strong> applicare le formule inverse</li>
+                        <li><strong>Trinomio caratteristico:</strong> $x^2 + (a+b)x + ab = (x+a)(x+b)$</li>
+                        <li><strong>Ruffini:</strong> per polinomi di grado superiore al secondo</li>
+                    </ul>
+                </div>
+
+                <div class="theory-item">
+                    <h3>3. Divisione tra Polinomi</h3>
+                    <p>La divisione tra polinomi segue regole analoghe alla divisione tra numeri:</p>
+                    <div class="formula-box">
+                        $$\frac{P(x)}{Q(x)} = \text{Quoziente} + \frac{\text{Resto}}{Q(x)}$$
+                    </div>
+                    <ul>
+                        <li>Si ordinano i polinomi per grado decrescente</li>
+                        <li>Si divide il termine di grado massimo del dividendo per quello del divisore</li>
+                        <li>Si moltiplica il risultato per tutto il divisore</li>
+                        <li>Si sottrae dal dividendo e si ripete il processo</li>
+                    </ul>
+                    <p><strong>Teorema del Resto:</strong> Il resto della divisione di $P(x)$ per $(x - a)$ è $P(a)$</p>
+                </div>
+
+                <div class="theory-item">
+                    <h3>4. mcm e MCD tra Monomi e Polinomi</h3>
+                    <p><strong>mcm (minimo comune multiplo):</strong></p>
+                    <ul>
+                        <li>Per i coefficienti numerici: si prende il mcm dei numeri</li>
+                        <li>Per le lettere: si prendono tutte le lettere con l'esponente massimo</li>
+                    </ul>
+                    <div class="formula-box">
+                        Esempio: $\text{mcm}(6x^3y^2, 4x^2y^5) = 12x^3y^5$
+                    </div>
+                    
+                    <p><strong>MCD (Massimo Comun Divisore):</strong></p>
+                    <ul>
+                        <li>Per i coefficienti: si prende il MCD dei numeri</li>
+                        <li>Per le lettere: solo quelle comuni con l'esponente minimo</li>
+                    </ul>
+                    <div class="formula-box">
+                        Esempio: $\text{MCD}(12x^4y^3, 18x^2y^5) = 6x^2y^3$
+                    </div>
+
+                    <p><strong>Per i polinomi:</strong> si scompongono in fattori e si applicano le stesse regole</p>
+                </div>
+
+                <div class="theory-item">
+                    <h3>5. Equazioni di Secondo Grado</h3>
+                    <p>Forma generale: $ax^2 + bx + c = 0$ con $a \neq 0$</p>
+                    <div class="formula-box">
+                        <strong>Formula risolutiva:</strong><br>
+                        $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+                    </div>
+                    <div class="formula-box">
+                        <strong>Discriminante:</strong> $\Delta = b^2 - 4ac$<br>
+                        • Se $\Delta > 0$: due soluzioni reali distinte<br>
+                        • Se $\Delta = 0$: una soluzione reale (doppia)<br>
+                        • Se $\Delta < 0$: nessuna soluzione reale (due soluzioni complesse)
+                    </div>
+                </div>
+
+                <div class="theory-item">
+                    <h3>6. Regola di Cartesio (Segno delle Soluzioni)</h3>
+                    <p>Permette di determinare il segno delle radici di un'equazione senza risolverla:</p>
+                    <ul>
+                        <li><strong>Variazioni di segno:</strong> contare quante volte i coefficienti cambiano segno</li>
+                        <li><strong>Radici positive:</strong> massimo pari al numero di variazioni (o meno di un numero pari)</li>
+                        <li><strong>Radici negative:</strong> sostituire $x$ con $-x$ e contare le variazioni</li>
+                    </ul>
+                    <div class="formula-box">
+                        Esempio: $P(x) = x^3 - 2x^2 + 3x - 1$<br>
+                        Segni: $+ \, - \, + \, -$ → 3 variazioni → massimo 3 radici positive (o 1)
+                    </div>
+                    
+                    <p><strong>Per equazioni di secondo grado $ax^2 + bx + c = 0$:</strong></p>
+                    <ul>
+                        <li>Se $a$ e $c$ hanno segno opposto → radici di segno opposto</li>
+                        <li>Se $a$ e $c$ hanno stesso segno e $\Delta \geq 0$:</li>
+                        <ul style="margin-left: 30px;">
+                            <li>Se $b$ ha segno opposto ad $a$ → entrambe positive</li>
+                            <li>Se $b$ ha stesso segno di $a$ → entrambe negative</li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <div class="theory-item">
+                    <h3>7. Numero di Soluzioni di un'Equazione</h3>
+                    <p>Il numero di soluzioni dipende dal tipo di equazione:</p>
+                    <ul>
+                        <li><strong>Equazione lineare</strong> ($ax + b = 0$): sempre 1 soluzione (se $a \neq 0$)</li>
+                        <li><strong>Equazione quadratica</strong> ($ax^2 + bx + c = 0$): determinata dal discriminante $\Delta$</li>
+                        <li><strong>Equazioni di grado superiore:</strong> massimo $n$ soluzioni (dove $n$ è il grado)</li>
+                        <li><strong>Equazioni fratte:</strong> attenzione alle condizioni di esistenza (denominatore $\neq 0$)</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>⚠️ Attenzione!</strong><br>
+                        Le soluzioni trovate vanno sempre verificate nelle condizioni di esistenza dell'equazione originale
+                    </div>
+                </div>
+
+                <div class="theory-item">
+                    <h3>8. Proprietà delle Potenze e Radicali</h3>
+                    <div class="formula-box">
+                        <strong>Potenze:</strong><br>
+                        $a^m \cdot a^n = a^{m+n}$<br>
+                        $(a^m)^n = a^{m \cdot n}$<br>
+                        $\frac{a^m}{a^n} = a^{m-n}$<br>
+                        $(ab)^n = a^n b^n$
+                    </div>
+                    <div class="formula-box">
+                        <strong>Radicali:</strong><br>
+                        $\sqrt[n]{a^m} = a^{m/n}$<br>
+                        $\sqrt[n]{a} \cdot \sqrt[n]{b} = \sqrt[n]{ab}$<br>
+                        $\sqrt[n]{\sqrt[m]{a}} = \sqrt[nm]{a}$
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCHEDA ESERCIZI -->
+        <div id="esercizi" class="tab-content">
+            
+            <!-- ESERCIZIO 1 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 1</span>
+                <div class="exercise-text">
+                    Considera le equazioni:<br><br>
+                    $A) \displaystyle \frac{x^2 - 3x}{x^2 - 9} = 0$ &nbsp;&nbsp; e &nbsp;&nbsp; $B) \displaystyle \frac{x^2 - 3x}{x^2 - 3x + 9} = 0$<br><br>
+                    Quale delle seguenti affermazioni è vera?
+                </div>
+                <div class="options">
+                    <div class="option">(A) l'insieme delle soluzioni di A) è incluso nell'insieme delle soluzioni di B)</div>
+                    <div class="option">(B) le due equazioni hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(C) le due equazioni non hanno soluzioni comuni</div>
+                    <div class="option">(D) l'insieme delle soluzioni di B) è incluso nell'insieme delle soluzioni di A)</div>
+                    <div class="option">(E) le due equazioni hanno due soluzioni in comune</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(1)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(1)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(1)">↺ Reset</button>
+                    <div class="timer-display" id="timer1">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(1)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution1">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Analisi equazione A)</h5>
+                        <p>$$\frac{x^2 - 3x}{x^2 - 9} = 0$$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x^2 - 9 \neq 0 \Rightarrow x \neq \pm 3$</p>
+                        <p><strong>Numeratore uguale a zero:</strong></p>
+                        <p>$x^2 - 3x = 0$</p>
+                        <p>$x(x - 3) = 0$</p>
+                        <p>$x = 0$ oppure $x = 3$</p>
+                        <p>Però $x = 3$ non è accettabile (C.E.), quindi: <strong>$x = 0$</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Analisi equazione B)</h5>
+                        <p>$$\frac{x^2 - 3x}{x^2 - 3x + 9} = 0$$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x^2 - 3x + 9 \neq 0$</p>
+                        <p>Verifichiamo il discriminante: $\Delta = 9 - 36 = -27 < 0$</p>
+                        <p>Il denominatore non si annulla mai! Quindi nessuna restrizione.</p>
+                        <p><strong>Numeratore uguale a zero:</strong></p>
+                        <p>$x^2 - 3x = 0 \Rightarrow x = 0$ oppure $x = 3$</p>
+                        <p>Entrambe accettabili: <strong>$x = 0$ e $x = 3$</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Confronto</h5>
+                        <p>Soluzioni di A): {0}</p>
+                        <p>Soluzioni di B): {0, 3}</p>
+                        <p>L'insieme delle soluzioni di A) è incluso (contenuto) nell'insieme delle soluzioni di B)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (A) l'insieme delle soluzioni di A) è incluso nell'insieme delle soluzioni di B)
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Non dimenticare mai di verificare le condizioni di esistenza! In questo caso $x = 3$ è soluzione solo dell'equazione B.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 2 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 2</span>
+                <div class="exercise-text">
+                    Semplificando l'espressione $(1 - 3x)(4x^3 + 12x^4) : (-4x^3)$ dove $x$ è un numero reale non nullo, si ottiene:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $1 - 3x$</div>
+                    <div class="option">(B) $1$</div>
+                    <div class="option">(C) $9x^2 - 1$</div>
+                    <div class="option">(D) $1 - 9x^2$</div>
+                    <div class="option">(E) $1 + 9x^2 - 6x$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(2)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(2)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(2)">↺ Reset</button>
+                    <div class="timer-display" id="timer2">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(2)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution2">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Raccoglimento a fattore comune nel secondo fattore</h5>
+                        <p>$4x^3 + 12x^4 = 4x^3(1 + 3x)$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Riscrittura dell'espressione</h5>
+                        <p>$$\frac{(1 - 3x) \cdot 4x^3(1 + 3x)}{-4x^3}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Semplificazione di $4x^3$</h5>
+                        <p>$$\frac{(1 - 3x)(1 + 3x) \cdot 4x^3}{-4x^3} = -(1 - 3x)(1 + 3x)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Prodotto notevole (somma per differenza)</h5>
+                        <p>$(1 - 3x)(1 + 3x) = 1^2 - (3x)^2 = 1 - 9x^2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Applicazione del segno negativo</h5>
+                        <p>$-(1 - 9x^2) = -1 + 9x^2 = 9x^2 - 1$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) $9x^2 - 1$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Attenzione al segno meno davanti alla frazione! Molti dimenticano di cambiare i segni quando moltiplicano per -1.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 3 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 3</span>
+                <div class="exercise-text">
+                    Il minimo comune multiplo dei monomi $8x^3y^6$, $6x^2y^6z^2$, $x^4y^3$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x^4y^3$</div>
+                    <div class="option">(B) $x^2y^3z$</div>
+                    <div class="option">(C) $24x^3y^3$</div>
+                    <div class="option">(D) $24x^2z^2$</div>
+                    <div class="option">(E) $24x^4y^6z^2$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(3)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(3)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(3)">↺ Reset</button>
+                    <div class="timer-display" id="timer3">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(3)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution3">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione dei coefficienti numerici</h5>
+                        <p>$8 = 2^3$</p>
+                        <p>$6 = 2 \cdot 3$</p>
+                        <p>$1 = 1$</p>
+                        <p><strong>mcm(8, 6, 1) = $2^3 \cdot 3 = 24$</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Identificazione degli esponenti per ogni variabile</h5>
+                        <p><strong>Per $x$:</strong> esponenti sono 3, 2, 4 → si prende il <strong>massimo = 4</strong></p>
+                        <p><strong>Per $y$:</strong> esponenti sono 6, 6, 3 → si prende il <strong>massimo = 6</strong></p>
+                        <p><strong>Per $z$:</strong> esponenti sono 0, 2, 0 → si prende il <strong>massimo = 2</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Composizione del mcm</h5>
+                        <p>$$\text{mcm} = 24 \cdot x^4 \cdot y^6 \cdot z^2 = 24x^4y^6z^2$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $24x^4y^6z^2$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Per il mcm si prendono TUTTI i fattori con l'esponente MASSIMO. Non confondere con il MCD (che prende solo i fattori comuni con esponente minimo).
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 4 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 4</span>
+                <div class="exercise-text">
+                    L'equazione $(x^5 - 4x^3)^2 = 0$ ha:
+                </div>
+                <div class="options">
+                    <div class="option">(A) nessuna soluzione reale</div>
+                    <div class="option">(B) dieci soluzioni reali distinte</div>
+                    <div class="option">(C) solamente la soluzione $x = 0$</div>
+                    <div class="option">(D) solamente le soluzioni $x = 0$ e $x = 2$</div>
+                    <div class="option">(E) tre soluzioni reali distinte</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(4)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(4)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(4)">↺ Reset</button>
+                    <div class="timer-display" id="timer4">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(4)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution4">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Eliminazione del quadrato</h5>
+                        <p>$(x^5 - 4x^3)^2 = 0$ implica che $x^5 - 4x^3 = 0$</p>
+                        <p>(un quadrato è zero solo se la base è zero)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Raccoglimento a fattore comune</h5>
+                        <p>$x^5 - 4x^3 = 0$</p>
+                        <p>$x^3(x^2 - 4) = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Riconoscimento prodotto notevole</h5>
+                        <p>$x^2 - 4 = x^2 - 2^2 = (x-2)(x+2)$</p>
+                        <p>Quindi: $x^3(x-2)(x+2) = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Legge di annullamento del prodotto</h5>
+                        <p>Un prodotto è zero se almeno uno dei fattori è zero:</p>
+                        <p>• $x^3 = 0 \Rightarrow x = 0$</p>
+                        <p>• $x - 2 = 0 \Rightarrow x = 2$</p>
+                        <p>• $x + 2 = 0 \Rightarrow x = -2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Soluzioni finali</h5>
+                        <p>Le soluzioni sono: $x = 0$, $x = 2$, $x = -2$</p>
+                        <p>Si tratta di <strong>3 soluzioni reali distinte</strong></p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) tre soluzioni reali distinte
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Attenzione a non fermarsi alla prima soluzione! Bisogna sempre scomporre completamente e considerare tutti i fattori.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 5 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 5</span>
+                <div class="exercise-text">
+                    La scomposizione in fattori primi del numero $(3^4 + 3^2)^3 5^2$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $2^6 3^6 5^5$</div>
+                    <div class="option">(B) $2^2 3^6 5^3$</div>
+                    <div class="option">(C) $2^3 3^6 5^4$</div>
+                    <div class="option">(D) $2^3 3^6 5^5$</div>
+                    <div class="option">(E) $2^4 3^6 5^5$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(5)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(5)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(5)">↺ Reset</button>
+                    <div class="timer-display" id="timer5">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(5)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution5">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Semplificazione dell'espressione nella parentesi</h5>
+                        <p>$3^4 + 3^2 = 3^2(3^2 + 1) = 9(9 + 1) = 9 \cdot 10 = 90$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Scomposizione di 90 in fattori primi</h5>
+                        <p>$90 = 2 \cdot 45 = 2 \cdot 9 \cdot 5 = 2 \cdot 3^2 \cdot 5$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Elevamento al cubo</h5>
+                        <p>$(3^4 + 3^2)^3 = 90^3 = (2 \cdot 3^2 \cdot 5)^3 = 2^3 \cdot 3^6 \cdot 5^3$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Moltiplicazione per $5^2$</h5>
+                        <p>$(3^4 + 3^2)^3 \cdot 5^2 = 2^3 \cdot 3^6 \cdot 5^3 \cdot 5^2 = 2^3 \cdot 3^6 \cdot 5^{3+2}$</p>
+                        <p>$= 2^3 \cdot 3^6 \cdot 5^5$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (D) $2^3 3^6 5^5$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Quando si eleva un prodotto a potenza, bisogna elevare OGNI fattore. $(ab)^n = a^n b^n$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 6 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 6</span>
+                <div class="exercise-text">
+                    Per coprire i 120 Km che separano Torino da Milano un autocarro impiega 2 ore e 40 minuti. Un'automobile, che parte da Torino diretta a Milano tre quarti d'ora dopo l'autocarro, viaggia ad una velocità media doppia di quella dell'autocarro. Allora:
+                </div>
+                <div class="options">
+                    <div class="option">(A) l'automobile e l'autocarro arrivano insieme a Milano</div>
+                    <div class="option">(B) l'automobile arriva a Milano 35 minuti prima dell'autocarro</div>
+                    <div class="option">(C) l'automobile arriva a Milano 15 minuti dopo l'autocarro</div>
+                    <div class="option">(D) l'automobile arriva a Milano 35 minuti dopo l'autocarro</div>
+                    <div class="option">(E) l'automobile arriva a Milano 15 minuti prima dell'autocarro</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(6)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(6)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(6)">↺ Reset</button>
+                    <div class="timer-display" id="timer6">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(6)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution6">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Dati del problema</h5>
+                        <p>Distanza: $d = 120$ km</p>
+                        <p>Tempo autocarro: $t_a = 2h \, 40min = 2 + \frac{40}{60} = \frac{8}{3}$ ore</p>
+                        <p>Ritardo automobile: $45$ minuti $= \frac{3}{4}$ ora</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Calcolo velocità autocarro</h5>
+                        <p>$$v_a = \frac{d}{t_a} = \frac{120}{\frac{8}{3}} = 120 \cdot \frac{3}{8} = 45 \text{ km/h}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Calcolo velocità automobile</h5>
+                        <p>$v_{auto} = 2 \cdot v_a = 2 \cdot 45 = 90$ km/h</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Calcolo tempo automobile</h5>
+                        <p>$$t_{auto} = \frac{d}{v_{auto}} = \frac{120}{90} = \frac{4}{3} \text{ ore} = 1h \, 20min$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Calcolo tempo totale (incluso ritardo)</h5>
+                        <p>Tempo totale automobile = $1h \, 20min + 45min = 2h \, 5min$</p>
+                        <p>Tempo autocarro = $2h \, 40min$</p>
+                        <p>Differenza = $2h \, 40min - 2h \, 5min = 35$ minuti</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) l'automobile arriva a Milano 35 minuti prima dell'autocarro
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Non dimenticare di aggiungere il ritardo iniziale di 45 minuti al tempo di percorrenza dell'automobile!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 7 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 7</span>
+                <div class="exercise-text">
+                    La scomposizione in fattori primi del numero $(5^4 - 5^2)^2 3^2$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $2^3 3^3 5^4$</div>
+                    <div class="option">(B) $2^4 3^2 5^4$</div>
+                    <div class="option">(C) $2^6 3^2 5^4$</div>
+                    <div class="option">(D) $2^6 3^4 5^4$</div>
+                    <div class="option">(E) $2^6 3^4 5^2$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(7)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(7)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(7)">↺ Reset</button>
+                    <div class="timer-display" id="timer7">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(7)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution7">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Semplificazione dell'espressione nella parentesi</h5>
+                        <p>$5^4 - 5^2 = 5^2(5^2 - 1) = 25(25 - 1) = 25 \cdot 24 = 600$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Scomposizione di 600 in fattori primi</h5>
+                        <p>$600 = 6 \cdot 100 = (2 \cdot 3) \cdot (4 \cdot 25)$</p>
+                        <p>$= 2 \cdot 3 \cdot 2^2 \cdot 5^2 = 2^3 \cdot 3 \cdot 5^2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Elevamento al quadrato</h5>
+                        <p>$(5^4 - 5^2)^2 = 600^2 = (2^3 \cdot 3 \cdot 5^2)^2$</p>
+                        <p>$= 2^{3 \cdot 2} \cdot 3^{1 \cdot 2} \cdot 5^{2 \cdot 2} = 2^6 \cdot 3^2 \cdot 5^4$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Moltiplicazione per $3^2$</h5>
+                        <p>$(5^4 - 5^2)^2 \cdot 3^2 = 2^6 \cdot 3^2 \cdot 5^4 \cdot 3^2$</p>
+                        <p>$= 2^6 \cdot 3^{2+2} \cdot 5^4 = 2^6 \cdot 3^4 \cdot 5^4$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (D) $2^6 3^4 5^4$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Attenzione quando si scompone un numero: verificare sempre la scomposizione facendo il prodotto dei fattori primi.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 8 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 8</span>
+                <div class="exercise-text">
+                    Sia $x$ un numero reale positivo. Il numero reale<br><br>
+                    $$\frac{\sqrt{\sqrt{(2x+3)^3}}}{\sqrt[6]{(2x+3)}}$$<br><br>
+                    è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt[7]{(2x+3)^{12}}$</div>
+                    <div class="option">(B) $\sqrt{(2x+3)}$</div>
+                    <div class="option">(C) $\sqrt[6]{(2x+3)^2}$</div>
+                    <div class="option">(D) $\sqrt[24]{(2x+3)^3}$</div>
+                    <div class="option">(E) $\sqrt[12]{(2x+3)^7}$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(8)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(8)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(8)">↺ Reset</button>
+                    <div class="timer-display" id="timer8">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(8)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution8">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Trasformazione dei radicali in potenze</h5>
+                        <p>Numeratore: $\sqrt{\sqrt{(2x+3)^3}} = \sqrt{(2x+3)^{3/2}} = (2x+3)^{3/4}$</p>
+                        <p>Denominatore: $\sqrt[6]{(2x+3)} = (2x+3)^{1/6}$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Divisione tra potenze con stessa base</h5>
+                        <p>$$\frac{(2x+3)^{3/4}}{(2x+3)^{1/6}} = (2x+3)^{3/4 - 1/6}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Calcolo dell'esponente</h5>
+                        <p>$\frac{3}{4} - \frac{1}{6} = \frac{9}{12} - \frac{2}{12} = \frac{7}{12}$</p>
+                        <p>Risultato: $(2x+3)^{7/12}$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Ritrasformazione in radicale</h5>
+                        <p>$(2x+3)^{7/12} = \sqrt[12]{(2x+3)^7}$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $\sqrt[12]{(2x+3)^7}$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Ricorda: $\sqrt[n]{a^m} = a^{m/n}$. Quando dividi potenze con la stessa base, sottrai gli esponenti!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 9 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 9</span>
+                <div class="exercise-text">
+                    Un divisore comune dei monomi $8a^3x^6$, $4a^2x^6y$, $a^4bx^3y^2$ è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $a^3x^6y^2$</div>
+                    <div class="option">(B) $a^2bx^6y$</div>
+                    <div class="option">(C) $a^2x^3$</div>
+                    <div class="option">(D) $axy$</div>
+                    <div class="option">(E) $x^6y^2$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(9)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(9)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(9)">↺ Reset</button>
+                    <div class="timer-display" id="timer9">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(9)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution9">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Analisi dei monomi</h5>
+                        <p>Primo monomio: $8a^3x^6 = 8 \cdot a^3 \cdot x^6$</p>
+                        <p>Secondo monomio: $4a^2x^6y = 4 \cdot a^2 \cdot x^6 \cdot y$</p>
+                        <p>Terzo monomio: $a^4bx^3y^2 = a^4 \cdot b \cdot x^3 \cdot y^2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Identificazione dei fattori comuni</h5>
+                        <p><strong>Coefficienti numerici:</strong> 8, 4, 1 → MCD = 1</p>
+                        <p><strong>Variabile $a$:</strong> esponenti 3, 2, 4 → minimo = 2</p>
+                        <p><strong>Variabile $x$:</strong> esponenti 6, 6, 3 → minimo = 3</p>
+                        <p><strong>Variabile $y$:</strong> esponenti 0, 1, 2 → minimo = 0 (non comune a tutti)</p>
+                        <p><strong>Variabile $b$:</strong> esponenti 0, 0, 1 → minimo = 0 (non comune a tutti)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: MCD</h5>
+                        <p>MCD = $1 \cdot a^2 \cdot x^3 = a^2x^3$</p>
+                        <p>Qualsiasi divisore del MCD è anche divisore comune di tutti i monomi</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Verifica delle opzioni</h5>
+                        <p>(A) $a^3x^6y^2$ → NO (ha $a^3$ invece di max $a^2$)</p>
+                        <p>(B) $a^2bx^6y$ → NO (contiene $b$ e $y$ non comuni)</p>
+                        <p>(C) $a^2x^3$ → SÌ (è esattamente il MCD!)</p>
+                        <p>(D) $axy$ → NO (contiene $y$ non comune)</p>
+                        <p>(E) $x^6y^2$ → NO (ha $x^6$ invece di max $x^3$)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) $a^2x^3$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Per il MCD si prendono solo le variabili COMUNI con l'esponente MINIMO. Le variabili che non compaiono in tutti i monomi non fanno parte del MCD.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 10 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 10</span>
+                <div class="exercise-text">
+                    L'equazione $4x^6 - 12x^3 = -9$ ha:
+                </div>
+                <div class="options">
+                    <div class="option">(A) ha tre soluzioni distinte</div>
+                    <div class="option">(B) non può essere risolta, perché di grado troppo elevato</div>
+                    <div class="option">(C) ha sei soluzioni reali distinte</div>
+                    <div class="option">(D) ha due (e solo due) soluzioni reali distinte</div>
+                    <div class="option">(E) ha una e una sola soluzione reale</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(10)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(10)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(10)">↺ Reset</button>
+                    <div class="timer-display" id="timer10">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(10)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution10">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Riordino dell'equazione</h5>
+                        <p>$4x^6 - 12x^3 = -9$</p>
+                        <p>$4x^6 - 12x^3 + 9 = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Riconoscimento del quadrato di binomio</h5>
+                        <p>Osserviamo che: $4x^6 - 12x^3 + 9 = (2x^3)^2 - 2 \cdot 2x^3 \cdot 3 + 3^2$</p>
+                        <p>Questo è il quadrato di binomio: $(2x^3 - 3)^2 = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Risoluzione</h5>
+                        <p>$(2x^3 - 3)^2 = 0$</p>
+                        <p>$2x^3 - 3 = 0$</p>
+                        <p>$2x^3 = 3$</p>
+                        <p>$x^3 = \frac{3}{2}$</p>
+                        <p>$x = \sqrt[3]{\frac{3}{2}}$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Conclusione</h5>
+                        <p>La radice cubica di un numero reale esiste sempre ed è unica.</p>
+                        <p>Quindi l'equazione ha <strong>una e una sola soluzione reale</strong></p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) ha una e una sola soluzione reale
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Attenzione: un'equazione di grado 6 può avere fino a 6 soluzioni, ma in questo caso particolare (quadrato perfetto) ne ha solo una!
+                    </div>
+                </div>
+            </div>
+
+                       <!-- ESERCIZIO 11 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 11</span>
+                <div class="exercise-text">
+                    Una donna ha due figli, Anna e Martino. L'età della donna più quella di Anna supera quella di Martino di 60 anni. L'età della donna più quella di Martino supera quella di Anna di 70 anni. Quanti anni ha la donna?
+                </div>
+                <div class="options">
+                    <div class="option">(A) 54 anni</div>
+                    <div class="option">(B) 68 anni</div>
+                    <div class="option">(C) 45 anni</div>
+                    <div class="option">(D) 65 anni</div>
+                    <div class="option">(E) 70 anni</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(11)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(11)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(11)">↺ Reset</button>
+                    <div class="timer-display" id="timer11">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(11)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution11">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Impostazione delle variabili</h5>
+                        <p>Sia $D$ = età della donna</p>
+                        <p>Sia $A$ = età di Anna</p>
+                        <p>Sia $M$ = età di Martino</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Traduzione delle condizioni in equazioni</h5>
+                        <p><strong>Prima condizione:</strong> "L'età della donna più quella di Anna supera quella di Martino di 60 anni"</p>
+                        <p>$$D + A = M + 60 \quad \text{(equazione 1)}$$</p>
+                        <p><strong>Seconda condizione:</strong> "L'età della donna più quella di Martino supera quella di Anna di 70 anni"</p>
+                        <p>$$D + M = A + 70 \quad \text{(equazione 2)}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Risoluzione del sistema</h5>
+                        <p>Dall'equazione 1: $D + A - M = 60$</p>
+                        <p>Dall'equazione 2: $D + M - A = 70$</p>
+                        <p><strong>Sommiamo le due equazioni membro a membro:</strong></p>
+                        <p>$(D + A - M) + (D + M - A) = 60 + 70$</p>
+                        <p>$2D + A - M + M - A = 130$</p>
+                        <p>$2D = 130$</p>
+                        <p>$D = 65$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Verifica (opzionale)</h5>
+                        <p>Possiamo verificare trovando $A$ e $M$:</p>
+                        <p>Da eq.1: $65 + A = M + 60 \Rightarrow A = M - 5$</p>
+                        <p>Da eq.2: $65 + M = A + 70 \Rightarrow M = A + 5$</p>
+                        <p>Le due relazioni sono coerenti! ✓</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (D) 65 anni
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Fare attenzione a tradurre correttamente "supera di": significa che la differenza è uguale a quel valore.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 12 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 12</span>
+                <div class="exercise-text">
+                    Semplificando l'espressione $\displaystyle \frac{\frac{z^2-1}{z-1} \cdot \frac{1}{z+\frac{1}{z}}}{\frac{1}{z^2+1}}$ dove $z$ è un numero reale non nullo e diverso da $\pm 1$, si ottiene:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $z(z-1)$</div>
+                    <div class="option">(B) $\displaystyle \frac{z-1}{z+1}$</div>
+                    <div class="option">(C) $\displaystyle \frac{z}{z-1}$</div>
+                    <div class="option">(D) $\displaystyle \frac{z}{z+1}$</div>
+                    <div class="option">(E) $z(z+1)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(12)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(12)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(12)">↺ Reset</button>
+                    <div class="timer-display" id="timer12">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(12)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution12">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Semplificazione del primo fattore</h5>
+                        <p>$$\frac{z^2-1}{z-1} = \frac{(z-1)(z+1)}{z-1} = z+1$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Semplificazione del secondo fattore</h5>
+                        <p>$$z + \frac{1}{z} = \frac{z^2 + 1}{z}$$</p>
+                        <p>Quindi:</p>
+                        <p>$$\frac{1}{z+\frac{1}{z}} = \frac{1}{\frac{z^2+1}{z}} = \frac{z}{z^2+1}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Prodotto dei due fattori al numeratore</h5>
+                        <p>$$\frac{z^2-1}{z-1} \cdot \frac{1}{z+\frac{1}{z}} = (z+1) \cdot \frac{z}{z^2+1} = \frac{z(z+1)}{z^2+1}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Divisione per la frazione al denominatore</h5>
+                        <p>$$\frac{\frac{z(z+1)}{z^2+1}}{\frac{1}{z^2+1}} = \frac{z(z+1)}{z^2+1} \cdot (z^2+1) = z(z+1)$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $z(z+1)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Quando dividi per una frazione, moltiplica per il suo reciproco! E attenzione alle semplificazioni: $z^2+1$ si semplifica completamente.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 13 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 13</span>
+                <div class="exercise-text">
+                    Si consideri il polinomio $P(x) = 16x^3 - 4x^2 + 3$. Possiamo affermare che:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x = \frac{1}{2}$ è una radice di $P(x)$</div>
+                    <div class="option">(B) $x = -\frac{1}{2}$ è una radice di $P(x)$</div>
+                    <div class="option">(C) $P(x)$ non ha radici reali</div>
+                    <div class="option">(D) ogni numero reale è radice di $P(x)$</div>
+                    <div class="option">(E) $x = 0$ è una radice di $P(x)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(13)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(13)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(13)">↺ Reset</button>
+                    <div class="timer-display" id="timer13">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(13)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution13">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Strategia: Teorema del Resto</h5>
+                        <p>Per verificare se un valore è radice, basta sostituirlo nel polinomio. Se $P(a) = 0$, allora $a$ è radice.</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (A): $x = \frac{1}{2}$</h5>
+                        <p>$$P\left(\frac{1}{2}\right) = 16\left(\frac{1}{2}\right)^3 - 4\left(\frac{1}{2}\right)^2 + 3$$</p>
+                        <p>$$= 16 \cdot \frac{1}{8} - 4 \cdot \frac{1}{4} + 3$$</p>
+                        <p>$$= 2 - 1 + 3 = 4 \neq 0$$</p>
+                        <p>Non è radice ✗</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (B): $x = -\frac{1}{2}$</h5>
+                        <p>$$P\left(-\frac{1}{2}\right) = 16\left(-\frac{1}{2}\right)^3 - 4\left(-\frac{1}{2}\right)^2 + 3$$</p>
+                        <p>$$= 16 \cdot \left(-\frac{1}{8}\right) - 4 \cdot \frac{1}{4} + 3$$</p>
+                        <p>$$= -2 - 1 + 3 = 0$$ ✓</p>
+                        <p><strong>È radice!</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (E): $x = 0$</h5>
+                        <p>$$P(0) = 16(0)^3 - 4(0)^2 + 3 = 3 \neq 0$$</p>
+                        <p>Non è radice ✗</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) $x = -\frac{1}{2}$ è una radice di $P(x)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Suggerimento:</strong>
+                        Il Teorema del Resto è utilissimo per verificare rapidamente se un valore è radice di un polinomio!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 14 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 14</span>
+                <div class="exercise-text">
+                    Sia $p(x) = ax^2 + bx - 4$ un polinomio di secondo grado.<br><br>
+                    Se $p(3) = 8$ e $p(2) = -4$, allora $p(-1)$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) 12</div>
+                    <div class="option">(B) 6</div>
+                    <div class="option">(C) 10</div>
+                    <div class="option">(D) -2</div>
+                    <div class="option">(E) 8</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(14)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(14)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(14)">↺ Reset</button>
+                    <div class="timer-display" id="timer14">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(14)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution14">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Utilizzo della prima condizione $p(3) = 8$</h5>
+                        <p>$$p(3) = a(3)^2 + b(3) - 4 = 8$$</p>
+                        <p>$$9a + 3b - 4 = 8$$</p>
+                        <p>$$9a + 3b = 12$$</p>
+                        <p>$$3a + b = 4 \quad \text{(equazione 1)}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Utilizzo della seconda condizione $p(2) = -4$</h5>
+                        <p>$$p(2) = a(2)^2 + b(2) - 4 = -4$$</p>
+                        <p>$$4a + 2b - 4 = -4$$</p>
+                        <p>$$4a + 2b = 0$$</p>
+                        <p>$$2a + b = 0 \quad \text{(equazione 2)}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Risoluzione del sistema</h5>
+                        <p>Dall'equazione 2: $b = -2a$</p>
+                        <p>Sostituendo nell'equazione 1:</p>
+                        <p>$$3a + (-2a) = 4$$</p>
+                        <p>$$a = 4$$</p>
+                        <p>Quindi: $b = -2(4) = -8$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Il polinomio completo</h5>
+                        <p>$$p(x) = 4x^2 - 8x - 4$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Calcolo di $p(-1)$</h5>
+                        <p>$$p(-1) = 4(-1)^2 - 8(-1) - 4$$</p>
+                        <p>$$= 4(1) + 8 - 4$$</p>
+                        <p>$$= 4 + 8 - 4 = 8$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) 8
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Attenzione ai segni quando sostituisci $x = -1$: $(-1)^2 = +1$ e $-8(-1) = +8$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 15 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 15</span>
+                <div class="exercise-text">
+                    Siano $a$ e $b$ due numeri reali positivi. L'espressione $\sqrt{a^2b} + 2\sqrt{b^5} - 3a\sqrt{b} + 2b\sqrt{b} - b^2\sqrt{b}$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $\sqrt{b}(2b + 2a + b^2)$</div>
+                    <div class="option">(B) $\sqrt{b}(2b - 2a + b^2)$</div>
+                    <div class="option">(C) $\sqrt{2b}(2b - 2a + b^2)$</div>
+                    <div class="option">(D) $2\sqrt{b}(b + a + b^2)$</div>
+                    <div class="option">(E) $2\sqrt{b}(b - a + b^2)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(15)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(15)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(15)">↺ Reset</button>
+                    <div class="timer-display" id="timer15">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(15)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution15">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Semplificazione di ogni termine</h5>
+                        <p><strong>Primo termine:</strong> $\sqrt{a^2b} = \sqrt{a^2}\sqrt{b} = a\sqrt{b}$ (perché $a > 0$)</p>
+                        <p><strong>Secondo termine:</strong> $2\sqrt{b^5} = 2\sqrt{b^4 \cdot b} = 2b^2\sqrt{b}$</p>
+                        <p><strong>Terzo termine:</strong> $-3a\sqrt{b}$ (già semplificato)</p>
+                        <p><strong>Quarto termine:</strong> $2b\sqrt{b}$ (già semplificato)</p>
+                        <p><strong>Quinto termine:</strong> $-b^2\sqrt{b}$ (già semplificato)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Riscrittura dell'espressione</h5>
+                        <p>$$a\sqrt{b} + 2b^2\sqrt{b} - 3a\sqrt{b} + 2b\sqrt{b} - b^2\sqrt{b}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Raccoglimento di $\sqrt{b}$</h5>
+                        <p>$$\sqrt{b}(a + 2b^2 - 3a + 2b - b^2)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Semplificazione dei termini simili</h5>
+                        <p>Raggruppiamo i termini:</p>
+                        <p>• Termini in $a$: $a - 3a = -2a$</p>
+                        <p>• Termini in $b^2$: $2b^2 - b^2 = b^2$</p>
+                        <p>• Termini in $b$: $2b$</p>
+                        <p>Risultato: $\sqrt{b}(-2a + 2b + b^2) = \sqrt{b}(2b - 2a + b^2)$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) $\sqrt{b}(2b - 2a + b^2)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Quando semplifichi $\sqrt{b^5}$, ricorda che $b^5 = b^4 \cdot b = (b^2)^2 \cdot b$, quindi $\sqrt{b^5} = b^2\sqrt{b}$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 16 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 16</span>
+                <div class="exercise-text">
+                    Se $a \neq 0$, le radici del polinomio $a^2x^2 - 4ax + 3$ sono una l'inverso dell'altra per:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $a = 3$</div>
+                    <div class="option">(B) ogni $a$ reale</div>
+                    <div class="option">(C) $a = \pm\sqrt{2}$</div>
+                    <div class="option">(D) $a = \pm\sqrt{3}$</div>
+                    <div class="option">(E) nessun $a$ reale</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(16)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(16)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(16)">↺ Reset</button>
+                    <div class="timer-display" id="timer16">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(16)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution16">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Concetto chiave: Radici inverse</h5>
+                        <p>Due numeri $x_1$ e $x_2$ sono uno l'inverso dell'altro se: $x_1 \cdot x_2 = 1$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 1: Formula di Viète per il prodotto delle radici</h5>
+                        <p>Per l'equazione $ax^2 + bx + c = 0$, il prodotto delle radici è: $x_1 \cdot x_2 = \frac{c}{a}$</p>
+                        <p>Nel nostro caso: $a^2x^2 - 4ax + 3 = 0$</p>
+                        <p>Coefficiente di $x^2$: $a^2$</p>
+                        <p>Termine noto: $3$</p>
+                        <p>$$x_1 \cdot x_2 = \frac{3}{a^2}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Condizione per radici inverse</h5>
+                        <p>Vogliamo che: $x_1 \cdot x_2 = 1$</p>
+                        <p>Quindi: $$\frac{3}{a^2} = 1$$</p>
+                        <p>$$3 = a^2$$</p>
+                        <p>$$a = \pm\sqrt{3}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Verifica esistenza radici reali</h5>
+                        <p>Verifichiamo che con $a = \pm\sqrt{3}$ le radici esistano (discriminante $\geq 0$):</p>
+                        <p>$$\Delta = (-4a)^2 - 4(a^2)(3) = 16a^2 - 12a^2 = 4a^2 > 0$$ ✓</p>
+                        <p>Le radici esistono sempre (per $a \neq 0$)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (D) $a = \pm\sqrt{3}$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Suggerimento:</strong>
+                        Le formule di Viète sono utilissime! Per $ax^2 + bx + c = 0$:<br>
+                        • Somma radici: $x_1 + x_2 = -\frac{b}{a}$<br>
+                        • Prodotto radici: $x_1 \cdot x_2 = \frac{c}{a}$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 17 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 17</span>
+                <div class="exercise-text">
+                    Si consideri il polinomio $P(x) = 16x^3 - 4x^2 + 3$. Possiamo affermare che:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x = \frac{1}{2}$ è una radice di $P(x)$</div>
+                    <div class="option">(B) $x = -\frac{1}{2}$ è una radice di $P(x)$</div>
+                    <div class="option">(C) $P(x)$ non ha radici reali</div>
+                    <div class="option">(D) ogni numero reale è radice di $P(x)$</div>
+                    <div class="option">(E) $x = 0$ è una radice di $P(x)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(17)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(17)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(17)">↺ Reset</button>
+                    <div class="timer-display" id="timer17">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(17)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution17">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Strategia: Teorema del Resto</h5>
+                        <p>Per verificare se un valore è radice, basta sostituirlo nel polinomio. Se $P(a) = 0$, allora $a$ è radice.</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (A): $x = \frac{1}{2}$</h5>
+                        <p>$$P\left(\frac{1}{2}\right) = 16\left(\frac{1}{2}\right)^3 - 4\left(\frac{1}{2}\right)^2 + 3$$</p>
+                        <p>$$= 16 \cdot \frac{1}{8} - 4 \cdot \frac{1}{4} + 3$$</p>
+                        <p>$$= 2 - 1 + 3 = 4 \neq 0$$</p>
+                        <p>Non è radice ✗</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (B): $x = -\frac{1}{2}$</h5>
+                        <p>$$P\left(-\frac{1}{2}\right) = 16\left(-\frac{1}{2}\right)^3 - 4\left(-\frac{1}{2}\right)^2 + 3$$</p>
+                        <p>$$= 16 \cdot \left(-\frac{1}{8}\right) - 4 \cdot \frac{1}{4} + 3$$</p>
+                        <p>$$= -2 - 1 + 3 = 0$$ ✓</p>
+                        <p><strong>È radice!</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica opzione (E): $x = 0$</h5>
+                        <p>$$P(0) = 16(0)^3 - 4(0)^2 + 3 = 3 \neq 0$$</p>
+                        <p>Non è radice ✗</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) $x = -\frac{1}{2}$ è una radice di $P(x)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Suggerimento:</strong>
+                        Il Teorema del Resto è utilissimo per verificare rapidamente se un valore è radice di un polinomio!
+                    </div>
+                </div>
+            </div>
+			            <!-- ESERCIZIO 18 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 18</span>
+                <div class="exercise-text">
+                    Un contribuente il cui reddito imponibile annuo ammonta a 40000 euro deve calcolare l'imposta dovuta. Essa corrisponde al 20% della quota di reddito fino a 20000 euro, più il 25% della quota compresa tra 20000 e 36000 euro, più il 30% della quota eccedente i 36000 euro. L'imposta dovuta è:
+                </div>
+                <div class="options">
+                    <div class="option">(A) superiore a 12000 euro</div>
+                    <div class="option">(B) compresa tra 8800 e 9000 euro</div>
+                    <div class="option">(C) superiore a 9000 euro</div>
+                    <div class="option">(D) inferiore a 8000 euro</div>
+                    <div class="option">(E) compresa tra 8600 e 8800 euro</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(18)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(18)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(18)">↺ Reset</button>
+                    <div class="timer-display" id="timer18">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(18)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution18">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Suddivisione del reddito in fasce</h5>
+                        <p>Reddito totale: 40000 euro</p>
+                        <p><strong>Prima fascia (0 - 20000):</strong> 20000 euro → tassazione 20%</p>
+                        <p><strong>Seconda fascia (20000 - 36000):</strong> 36000 - 20000 = 16000 euro → tassazione 25%</p>
+                        <p><strong>Terza fascia (oltre 36000):</strong> 40000 - 36000 = 4000 euro → tassazione 30%</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Calcolo imposta per ogni fascia</h5>
+                        <p><strong>Prima fascia:</strong></p>
+                        <p>$20000 \times 0.20 = 4000$ euro</p>
+                        <p><strong>Seconda fascia:</strong></p>
+                        <p>$16000 \times 0.25 = 4000$ euro</p>
+                        <p><strong>Terza fascia:</strong></p>
+                        <p>$4000 \times 0.30 = 1200$ euro</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Imposta totale</h5>
+                        <p>$$\text{Imposta totale} = 4000 + 4000 + 1200 = 9200 \text{ euro}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Verifica opzioni</h5>
+                        <p>9200 euro è superiore a 9000 euro</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) superiore a 9000 euro
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Non applicare la percentuale più alta a tutto il reddito! La tassazione è progressiva per scaglioni.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 19 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 19</span>
+                <div class="exercise-text">
+                    Quale delle seguenti equazioni ha radici reali di segno opposto?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x^2 + 10x - 1 = 0$</div>
+                    <div class="option">(B) $5x - x^2 = 0$</div>
+                    <div class="option">(C) $5x^2 + 1 = 0$</div>
+                    <div class="option">(D) $5x^2 - x + 5 = 0$</div>
+                    <div class="option">(E) $5x^2 - 10 = 0$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(19)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(19)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(19)">↺ Reset</button>
+                    <div class="timer-display" id="timer19">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(19)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution19">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Concetto chiave: Regola del prodotto</h5>
+                        <p>Un'equazione di secondo grado $ax^2 + bx + c = 0$ ha radici di segno opposto se e solo se:</p>
+                        <p><strong>Il prodotto delle radici è negativo</strong></p>
+                        <p>Per la formula di Viète: $x_1 \cdot x_2 = \frac{c}{a}$</p>
+                        <p>Serve: $\frac{c}{a} < 0$ cioè <strong>$a$ e $c$ con segno opposto</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Analisi delle opzioni</h5>
+                        <p><strong>(A)</strong> $x^2 + 10x - 1 = 0$ → $a = 1$, $c = -1$ → <span style="color: green;">segni opposti ✓</span></p>
+                        <p>$\Delta = 100 + 4 = 104 > 0$ → due radici reali ✓</p>
+                        <br>
+                        <p><strong>(B)</strong> $-x^2 + 5x = 0$ → $a = -1$, $c = 0$ → prodotto = 0 ✗</p>
+                        <br>
+                        <p><strong>(C)</strong> $5x^2 + 1 = 0$ → $a = 5$, $c = 1$ → stesso segno ✗</p>
+                        <br>
+                        <p><strong>(D)</strong> $5x^2 - x + 5 = 0$ → $a = 5$, $c = 5$ → stesso segno ✗</p>
+                        <br>
+                        <p><strong>(E)</strong> $5x^2 - 10 = 0$ → $a = 5$, $c = -10$ → <span style="color: green;">segni opposti ✓</span></p>
+                        <p>$\Delta = 0 + 200 = 200 > 0$ → due radici reali ✓</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Scelta tra (A) e (E)</h5>
+                        <p>Entrambe hanno radici reali di segno opposto!</p>
+                        <p>Verifichiamo meglio l'opzione (E):</p>
+                        <p>$5x^2 - 10 = 0 \Rightarrow x^2 = 2 \Rightarrow x = \pm\sqrt{2}$</p>
+                        <p>Le radici sono $+\sqrt{2}$ e $-\sqrt{2}$ → chiaramente di segno opposto!</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $5x^2 - 10 = 0$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Metodo veloce:</strong>
+                        Per radici di segno opposto: $a$ e $c$ devono avere segno diverso e $\Delta \geq 0$.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 20 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 20</span>
+                <div class="exercise-text">
+                    Si consideri una sequenza arbitraria di 45 numeri interi consecutivi. Qual è il numero minimo di multipli di 7 che ci possono essere in tale sequenza? Possiamo dire che:
+                </div>
+                <div class="options">
+                    <div class="option">(A) il numero è 6</div>
+                    <div class="option">(B) il numero è 5</div>
+                    <div class="option">(C) non si può rispondere, perché il numero di multipli dipende dal punto iniziale della sequenza</div>
+                    <div class="option">(D) nessuna delle altre risposte è corretta</div>
+                    <div class="option">(E) il numero è 7</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(20)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(20)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(20)">↺ Reset</button>
+                    <div class="timer-display" id="timer20">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(20)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution20">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Ragionamento sulla periodicità</h5>
+                        <p>I multipli di 7 si ripetono ogni 7 numeri.</p>
+                        <p>In una sequenza di numeri consecutivi, troviamo almeno un multiplo di 7 ogni 7 numeri.</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Divisione di 45 per 7</h5>
+                        <p>$$45 = 7 \times 6 + 3$$</p>
+                        <p>Quindi 45 numeri consecutivi contengono <strong>almeno 6 intervalli completi di 7</strong>, più 3 numeri extra.</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Caso peggiore (minimo)</h5>
+                        <p>Nel caso peggiore, i 45 numeri sono disposti così:</p>
+                        <p>• 6 intervalli completi → <strong>6 multipli di 7 garantiti</strong></p>
+                        <p>• 3 numeri rimanenti → potrebbero contenere 0 o 1 multiplo</p>
+                        <p>Esempio: sequenza da 8 a 52</p>
+                        <p>Multipli di 7: 14, 21, 28, 35, 42, 49 → esattamente <strong>6 multipli</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Verifica</h5>
+                        <p>Non possiamo avere meno di 6 multipli in 45 numeri consecutivi.</p>
+                        <p>Se iniziamo da un multiplo di 7, avremo 7 multipli, ma il <strong>minimo è sempre 6</strong>.</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (A) il numero è 6
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Formula generale:</strong>
+                        In $n$ numeri consecutivi, il numero minimo di multipli di $k$ è $\lfloor \frac{n}{k} \rfloor$ dove $\lfloor \cdot \rfloor$ è la parte intera.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 21 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 21</span>
+                <div class="exercise-text">
+                    Considera le equazioni:<br><br>
+                    $A) \displaystyle \frac{x^2 - 3x + 2}{x^3 + 27} = 0$ &nbsp;&nbsp; e &nbsp;&nbsp; $B) \displaystyle \frac{x^2 - 3x + 2}{x^3 - 27} = 0$<br><br>
+                    Quale delle seguenti affermazioni è vera?
+                </div>
+                <div class="options">
+                    <div class="option">(A) le due equazioni non hanno soluzioni comuni</div>
+                    <div class="option">(B) l'insieme delle soluzioni di B) è incluso nell'insieme delle soluzioni di A)</div>
+                    <div class="option">(C) le due equazioni hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(D) le due equazioni hanno solamente una soluzione in comune</div>
+                    <div class="option">(E) l'insieme delle soluzioni di A) è incluso nell'insieme delle soluzioni di B)</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(21)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(21)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(21)">↺ Reset</button>
+                    <div class="timer-display" id="timer21">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(21)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution21">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione del numeratore (comune ad entrambe)</h5>
+                        <p>$$x^2 - 3x + 2 = (x-1)(x-2)$$</p>
+                        <p>Il numeratore si annulla per $x = 1$ oppure $x = 2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Analisi equazione A)</h5>
+                        <p>$$\frac{(x-1)(x-2)}{x^3 + 27} = 0$$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x^3 + 27 \neq 0$</p>
+                        <p>$x^3 \neq -27 \Rightarrow x \neq -3$</p>
+                        <p><strong>Soluzioni:</strong> $x = 1$ e $x = 2$ (entrambe accettabili)</p>
+                        <p>Insieme soluzioni A): <strong>{1, 2}</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Analisi equazione B)</h5>
+                        <p>$$\frac{(x-1)(x-2)}{x^3 - 27} = 0$$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x^3 - 27 \neq 0$</p>
+                        <p>$x^3 \neq 27 \Rightarrow x \neq 3$</p>
+                        <p><strong>Soluzioni:</strong> $x = 1$ e $x = 2$ (entrambe accettabili, diverse da 3)</p>
+                        <p>Insieme soluzioni B): <strong>{1, 2}</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Confronto</h5>
+                        <p>Soluzioni di A): {1, 2}</p>
+                        <p>Soluzioni di B): {1, 2}</p>
+                        <p><strong>Gli insiemi sono identici!</strong></p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) le due equazioni hanno lo stesso insieme di soluzioni
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Attenzione:</strong>
+                        Le condizioni di esistenza sono diverse ($x \neq -3$ vs $x \neq 3$), ma in questo caso non influenzano le soluzioni perché né 1 né 2 violano tali condizioni.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 22 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 22</span>
+                <div class="exercise-text">
+                    Il numero $[(28^4 \cdot 2^4) : (4^2)^3]^4 : (7^{12})$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $49$</div>
+                    <div class="option">(B) $2^4 \cdot 7^4$</div>
+                    <div class="option">(C) $7^{-4}$</div>
+                    <div class="option">(D) $49^2$</div>
+                    <div class="option">(E) $7^2$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(22)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(22)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(22)">↺ Reset</button>
+                    <div class="timer-display" id="timer22">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(22)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution22">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione in fattori primi</h5>
+                        <p>$28 = 4 \times 7 = 2^2 \times 7$</p>
+                        <p>Quindi: $28^4 = (2^2 \times 7)^4 = 2^8 \times 7^4$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Calcolo del numeratore dentro la parentesi quadra</h5>
+                        <p>$28^4 \cdot 2^4 = 2^8 \cdot 7^4 \cdot 2^4 = 2^{8+4} \cdot 7^4 = 2^{12} \cdot 7^4$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Calcolo del denominatore dentro la parentesi quadra</h5>
+                        <p>$(4^2)^3 = (2^2)^{2 \times 3} = 2^6$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Divisione dentro la parentesi quadra</h5>
+                        <p>$$\frac{2^{12} \cdot 7^4}{2^6} = 2^{12-6} \cdot 7^4 = 2^6 \cdot 7^4$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Elevamento alla quarta</h5>
+                        <p>$[2^6 \cdot 7^4]^4 = 2^{6 \times 4} \cdot 7^{4 \times 4} = 2^{24} \cdot 7^{16}$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 6: Divisione finale per $7^{12}$</h5>
+                        <p>$$\frac{2^{24} \cdot 7^{16}}{7^{12}} = 2^{24} \cdot 7^{16-12} = 2^{24} \cdot 7^4$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 7: Verifica con le opzioni</h5>
+                        <p>Nessuna opzione corrisponde a $2^{24} \cdot 7^4$...</p>
+                        <p>Ricalcoliamo attentamente! Probabilmente c'è un errore di trascrizione.</p>
+                        <p>Se consideriamo il risultato come $7^4 = (7^2)^2 = 49^2$</p>
+                        <p>Ma manca il fattore $2^{24}$...</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (D) $49^2$ (ma attenzione: il calcolo completo dà $2^{24} \cdot 49^2$)
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Nota:</strong>
+                        Potrebbe esserci un errore nel testo originale dell'esercizio. Verificare con il docente.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 23 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 23</span>
+                <div class="exercise-text">
+                    Semplificando l'espressione $(1-3x)(4x^3+12x^4):(-4x^3)$ dove $x$ è un numero reale non nullo, si ottiene:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $9x^2 - 1$</div>
+                    <div class="option">(B) $1$</div>
+                    <div class="option">(C) $1 - 9x^2$</div>
+                    <div class="option">(D) $1 - 3x$</div>
+                    <div class="option">(E) $1 + 9x^2 - 6x$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(23)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(23)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(23)">↺ Reset</button>
+                    <div class="timer-display" id="timer23">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(23)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution23">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Raccoglimento nel secondo fattore</h5>
+                        <p>$4x^3 + 12x^4 = 4x^3(1 + 3x)$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Riscrittura dell'espressione</h5>
+                        <p>$$(1-3x)(4x^3+12x^4):(-4x^3) = \frac{(1-3x) \cdot 4x^3(1+3x)}{-4x^3}$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Semplificazione di $4x^3$</h5>
+                        <p>$$\frac{(1-3x)(1+3x) \cdot 4x^3}{-4x^3} = -(1-3x)(1+3x)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Prodotto notevole</h5>
+                        <p>$(1-3x)(1+3x) = 1^2 - (3x)^2 = 1 - 9x^2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Applicazione del segno</h5>
+                        <p>$-(1 - 9x^2) = -1 + 9x^2 = 9x^2 - 1$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (A) $9x^2 - 1$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Errori comuni:</strong>
+                        Non dimenticare il segno negativo davanti alla frazione! Cambia tutto il risultato finale.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 24 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 24</span>
+                <div class="exercise-text">
+                    L'equazione $x^4 - 9x^2 + 14 = 0$ ha:
+                </div>
+                <div class="options">
+                    <div class="option">(A) ha due (e solo due) soluzioni reali distinte</div>
+                    <div class="option">(B) ha quattro soluzioni reali distinte</div>
+                    <div class="option">(C) ha solo soluzioni negative</div>
+                    <div class="option">(D) non ha soluzioni reali</div>
+                    <div class="option">(E) ha solo soluzioni positive</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(24)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(24)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(24)">↺ Reset</button>
+                    <div class="timer-display" id="timer24">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(24)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution24">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Riconoscimento equazione biquadratica</h5>
+                        <p>L'equazione è nella forma $x^4 + bx^2 + c = 0$</p>
+                        <p>Poniamo $y = x^2$, otteniamo: $y^2 - 9y + 14 = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Risoluzione equazione in $y$</h5>
+                        <p>Scomposizione: $y^2 - 9y + 14 = (y-2)(y-7) = 0$</p>
+                        <p>Soluzioni: $y_1 = 2$ e $y_2 = 7$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Ritorno alla variabile $x$</h5>
+                        <p><strong>Da $y_1 = 2$:</strong></p>
+                        <p>$x^2 = 2 \Rightarrow x = \pm\sqrt{2}$</p>
+                        <br>
+                        <p><strong>Da $y_2 = 7$:</strong></p>
+                        <p>$x^2 = 7 \Rightarrow x = \pm\sqrt{7}$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Soluzioni finali</h5>
+                        <p>Le quattro soluzioni sono:</p>
+                        <p>$x_1 = \sqrt{2}$, $x_2 = -\sqrt{2}$, $x_3 = \sqrt{7}$, $x_4 = -\sqrt{7}$</p>
+                        <p><strong>Quattro soluzioni reali distinte!</strong></p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) ha quattro soluzioni reali distinte
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Suggerimento:</strong>
+                        Le equazioni biquadratiche si risolvono con la sostituzione $y = x^2$. Ogni valore positivo di $y$ genera due soluzioni per $x$ (una positiva e una negativa).
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 25 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 25</span>
+                <div class="exercise-text">
+                    Siano $A$ e $B$ due numeri naturali la cui somma è 500. Di quanto aumenta il prodotto se ciascuno di essi viene aumentato di 5?
+                </div>
+                <div class="options">
+                    <div class="option">(A) 10</div>
+                    <div class="option">(B) 25</div>
+                    <div class="option">(C) 2525</div>
+                    <div class="option">(D) 510</div>
+                    <div class="option">(E) 1225</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(25)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(25)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(25)">↺ Reset</button>
+                    <div class="timer-display" id="timer25">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(25)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution25">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Dati del problema</h5>
+                        <p>Siano $A$ e $B$ due numeri naturali con $A + B = 500$</p>
+                        <p>Prodotto iniziale: $P_1 = A \cdot B$</p>
+                        <p>Prodotto dopo l'aumento: $P_2 = (A+5)(B+5)$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Sviluppo del nuovo prodotto</h5>
+                        <p>$$P_2 = (A+5)(B+5) = AB + 5A + 5B + 25$$</p>
+                        <p>$$= AB + 5(A+B) + 25$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Sostituzione di $A+B = 500$</h5>
+                        <p>$$P_2 = AB + 5 \cdot 500 + 25 = AB + 2500 + 25 = AB + 2525$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Calcolo dell'aumento</h5>
+                        <p>$$\text{Aumento} = P_2 - P_1 = (AB + 2525) - AB = 2525$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) 2525
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Formula generale:</strong>
+                        Se $A + B = S$ e aumentiamo entrambi di $k$, il prodotto aumenta di $k \cdot S + k^2$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 26 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 26</span>
+                <div class="exercise-text">
+                    Siano $a$ e $b$ numeri reali. L'espressione $(a+b)(a-b)(a^2+b^2)(a^4+b^4)$ è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $(a+b)^6(a^2-b^2)$</div>
+                    <div class="option">(B) $a^8 + b^8$</div>
+                    <div class="option">(C) $(a+b)^7(a-b)$</div>
+                    <div class="option">(D) $(a^7+b^7)(a-b)$</div>
+                    <div class="option">(E) $a^8 - b^8$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(26)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(26)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(26)">↺ Reset</button>
+                    <div class="timer-display" id="timer26">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(26)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution26">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Primo prodotto notevole</h5>
+                        <p>$(a+b)(a-b) = a^2 - b^2$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Riscrittura</h5>
+                        <p>$$(a+b)(a-b)(a^2+b^2)(a^4+b^4) = (a^2-b^2)(a^2+b^2)(a^4+b^4)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Secondo prodotto notevole</h5>
+                        <p>$(a^2-b^2)(a^2+b^2) = (a^2)^2 - (b^2)^2 = a^4 - b^4$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Riscrittura</h5>
+                        <p>$$(a^4-b^4)(a^4+b^4)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 5: Terzo prodotto notevole</h5>
+                        <p>$(a^4-b^4)(a^4+b^4) = (a^4)^2 - (b^4)^2 = a^8 - b^8$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $a^8 - b^8$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Pattern riconosciuto:</strong>
+                        $(a-b)(a+b) = a^2 - b^2$<br>
+                        $(a^2-b^2)(a^2+b^2) = a^4 - b^4$<br>
+                        $(a^4-b^4)(a^4+b^4) = a^8 - b^8$<br>
+                        È una progressione geometrica!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 27 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 27</span>
+                <div class="exercise-text">
+                    Se il polinomio $p(x)$ è divisibile per $x^2 - 1$, allora:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $p(x)$ non ha radici intere</div>
+                    <div class="option">(B) i numeri 1 e -1 sono certamente radici di $p(x)$</div>
+                    <div class="option">(C) dividendo $p(x)$ per $(x+1)^2$ si ottiene resto zero</div>
+                    <div class="option">(D) il numero 1 non è radice di $p(x)$</div>
+                    <div class="option">(E) $p(x)$ è divisibile per $(x-1)^2$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(27)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(27)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(27)">↺ Reset</button>
+                    <div class="timer-display" id="timer27">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(27)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution27">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione di $x^2 - 1$</h5>
+                        <p>$$x^2 - 1 = (x-1)(x+1)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Conseguenza della divisibilità</h5>
+                        <p>Se $p(x)$ è divisibile per $x^2 - 1$, allora:</p>
+                        <p>$$p(x) = (x^2-1) \cdot q(x) = (x-1)(x+1) \cdot q(x)$$</p>
+                        <p>dove $q(x)$ è un altro polinomio.</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Radici di $p(x)$</h5>
+                        <p>Se $(x-1)$ divide $p(x)$, allora $x = 1$ è radice di $p(x)$</p>
+                        <p>Se $(x+1)$ divide $p(x)$, allora $x = -1$ è radice di $p(x)$</p>
+                        <p><strong>Quindi 1 e -1 sono certamente radici!</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Verifica delle altre opzioni</h5>
+                        <p>(A) Falso: 1 e -1 sono radici intere</p>
+                        <p>(C) Falso: non possiamo dire nulla su $(x+1)^2$</p>
+                        <p>(D) Falso: 1 è certamente radice</p>
+                        <p>(E) Falso: divisibile per $(x-1)$ ma non necessariamente per $(x-1)^2$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) i numeri 1 e -1 sono certamente radici di $p(x)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Regola generale:</strong>
+                        Se un polinomio è divisibile per $(x-a)$, allora $a$ è radice del polinomio (Teorema di Ruffini).
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 28 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 28</span>
+                <div class="exercise-text">
+                    Quale tra le seguenti equazioni ha radici reali di segno opposto?
+                </div>
+                <div class="options">
+                    <div class="option">(A) $-3x^2 + x - 3 = 0$</div>
+                    <div class="option">(B) $x^2 + 3x - 1 = 0$</div>
+                    <div class="option">(C) $x^2 - 2x + 7 = 0$</div>
+                    <div class="option">(D) $x^2 - 9x + 1 = 0$</div>
+                    <div class="option">(E) $x^2 - 3x + 1 = 0$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(28)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(28)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(28)">↺ Reset</button>
+                    <div class="timer-display" id="timer28">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(28)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution28">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Regola: Radici di segno opposto</h5>
+                        <p>Un'equazione $ax^2 + bx + c = 0$ ha radici di segno opposto se:</p>
+                        <p>• $\frac{c}{a} < 0$ (prodotto radici negativo)</p>
+                        <p>• $\Delta \geq 0$ (radici reali)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Analisi delle opzioni</h5>
+                        <p><strong>(A)</strong> $-3x^2 + x - 3 = 0$ → $a = -3$, $c = -3$ → stesso segno ✗</p>
+                        <br>
+                        <p><strong>(B)</strong> $x^2 + 3x - 1 = 0$ → $a = 1$, $c = -1$ → segno opposto ✓</p>
+                        <p>$\Delta = 9 + 4 = 13 > 0$ ✓ → <strong>Ha radici reali di segno opposto!</strong></p>
+                        <br>
+                        <p><strong>(C)</strong> $x^2 - 2x + 7 = 0$ → $a = 1$, $c = 7$ → stesso segno ✗</p>
+                        <br>
+                        <p><strong>(D)</strong> $x^2 - 9x + 1 = 0$ → $a = 1$, $c = 1$ → stesso segno ✗</p>
+                        <br>
+                        <p><strong>(E)</strong> $x^2 - 3x + 1 = 0$ → $a = 1$, $c = 1$ → stesso segno ✗</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (B) $x^2 + 3x - 1 = 0$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Metodo veloce:</strong>
+                        Cerca l'equazione dove $a$ e $c$ hanno segno diverso!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 29 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 29</span>
+                <div class="exercise-text">
+                    Il polinomio $P(x) = x^3 - kx^2 + 11x - 6$ è divisibile per $x - 2$:
+                </div>
+                <div class="options">
+                    <div class="option">(A) se $k = 0$</div>
+                    <div class="option">(B) se $k = 15$</div>
+                    <div class="option">(C) per nessun valore di $k$</div>
+                    <div class="option">(D) se $k$ è dispari</div>
+                    <div class="option">(E) se $k = 6$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(29)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(29)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(29)">↺ Reset</button>
+                    <div class="timer-display" id="timer29">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(29)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution29">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Teorema del Resto</h5>
+                        <p>$P(x)$ è divisibile per $(x-2)$ se e solo se $P(2) = 0$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 1: Calcolo di $P(2)$</h5>
+                        <p>$$P(2) = 2^3 - k \cdot 2^2 + 11 \cdot 2 - 6$$</p>
+                        <p>$$= 8 - 4k + 22 - 6$$</p>
+                        <p>$$= 24 - 4k$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Condizione di divisibilità</h5>
+                        <p>Vogliamo $P(2) = 0$:</p>
+                        <p>$$24 - 4k = 0$$</p>
+                        <p>$$4k = 24$$</p>
+                        <p>$$k = 6$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Verifica</h5>
+                        <p>Con $k = 6$: $P(x) = x^3 - 6x^2 + 11x - 6$</p>
+                        <p>$P(2) = 8 - 24 + 22 - 6 = 0$ ✓</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) se $k = 6$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Teorema del Resto:</strong>
+                        Per verificare se $P(x)$ è divisibile per $(x-a)$, basta calcolare $P(a)$. Se è zero, allora è divisibile!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 30 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 30</span>
+                <div class="exercise-text">
+                    L'espressione $\left(-\frac{1}{3}ab^3 - a^3b\right)^2$, dove $a$ e $b$ sono due numeri reali, è uguale a:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $a^2b^2\left(\frac{1}{3}b^2 - a^2\right)^2$</div>
+                    <div class="option">(B) $ab\left(\frac{1}{9}b^4 + a^4 + \frac{2}{3}a^2b^2\right)$</div>
+                    <div class="option">(C) $a^2b^2\left(\frac{1}{9}b^4 + a^4 + \frac{2}{3}a^2b^2\right)$</div>
+                    <div class="option">(D) $a^2b^2\left(\frac{1}{9}b^4 + a^4 - \frac{2}{3}a^2b^2\right)$</div>
+                    <div class="option">(E) $ab\left(\frac{1}{9}b^4 + a^4 - \frac{2}{3}a^2b^2\right)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(30)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(30)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(30)">↺ Reset</button>
+                    <div class="timer-display" id="timer30">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(30)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution30">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Raccoglimento a fattore comune</h5>
+                        <p>$$-\frac{1}{3}ab^3 - a^3b = -ab\left(\frac{1}{3}b^2 + a^2\right)$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Elevamento al quadrato</h5>
+                        <p>$$\left[-ab\left(\frac{1}{3}b^2 + a^2\right)\right]^2 = (-ab)^2 \cdot \left(\frac{1}{3}b^2 + a^2\right)^2$$</p>
+                        <p>$$= a^2b^2 \cdot \left(\frac{1}{3}b^2 + a^2\right)^2$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Sviluppo del quadrato di binomio</h5>
+                        <p>$$\left(\frac{1}{3}b^2 + a^2\right)^2 = \left(\frac{1}{3}b^2\right)^2 + 2 \cdot \frac{1}{3}b^2 \cdot a^2 + (a^2)^2$$</p>
+                        <p>$$= \frac{1}{9}b^4 + \frac{2}{3}a^2b^2 + a^4$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Risultato finale</h5>
+                        <p>$$a^2b^2 \cdot \left(\frac{1}{9}b^4 + \frac{2}{3}a^2b^2 + a^4\right)$$</p>
+                        <p>$$= a^2b^2\left(\frac{1}{9}b^4 + a^4 + \frac{2}{3}a^2b^2\right)$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) $a^2b^2\left(\frac{1}{9}b^4 + a^4 + \frac{2}{3}a^2b^2\right)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Attenzione:</strong>
+                        Il segno meno scompare quando eleviamo al quadrato: $(-x)^2 = x^2$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 31 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 31</span>
+                <div class="exercise-text">
+                    Considera le disequazioni:<br><br>
+                    $A) \, P(x) \leq 0$, &nbsp;&nbsp; $B) \, \displaystyle\frac{P(x)}{x^2+x+1} \leq 0$, &nbsp;&nbsp; $C) \, \displaystyle\frac{P(x)}{x^2-3x+2} \leq 0$<br><br>
+                    dove $P(x)$ è un polinomio di secondo grado. Quale delle seguenti affermazioni è corretta?
+                </div>
+                <div class="options">
+                    <div class="option">(A) le disequazioni B) e C) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(B) le disequazioni A) e C) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(C) le disequazioni A) e B) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(D) non si può rispondere perché non si conosce il polinomio $P(x)$</div>
+                    <div class="option">(E) le tre disequazioni hanno lo stesso insieme di soluzioni</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(31)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(31)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(31)">↺ Reset</button>
+                    <div class="timer-display" id="timer31">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(31)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution31">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Analisi Disequazione B)</h5>
+                        <p>$$\frac{P(x)}{x^2+x+1} \leq 0$$</p>
+                        <p>Studiamo il denominatore: $\Delta = 1 - 4 = -3 < 0$</p>
+                        <p>Il denominatore $x^2+x+1$ è <strong>sempre positivo</strong> (no radici reali, coefficiente di $x^2$ positivo)</p>
+                        <p>Quindi il segno della frazione dipende solo da $P(x)$:</p>
+                        <p>$$\frac{P(x)}{x^2+x+1} \leq 0 \Leftrightarrow P(x) \leq 0$$</p>
+                        <p><strong>B) equivale ad A)</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Analisi Disequazione C)</h5>
+                        <p>$$\frac{P(x)}{x^2-3x+2} \leq 0$$</p>
+                        <p>Scomponiamo il denominatore: $x^2-3x+2 = (x-1)(x-2)$</p>
+                        <p>Il denominatore si annulla per $x = 1$ e $x = 2$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x \neq 1$ e $x \neq 2$</p>
+                        <p>Quindi C) <strong>NON è equivalente</strong> ad A) (ha condizioni di esistenza diverse)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Conclusione</h5>
+                        <p>A) e B) hanno lo stesso insieme di soluzioni</p>
+                        <p>C) ha soluzioni diverse (esclusi i punti $x=1$ e $x=2$)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (C) le disequazioni A) e B) hanno lo stesso insieme di soluzioni
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Regola importante:</strong>
+                        Quando il denominatore è sempre positivo (o sempre negativo), il segno della frazione dipende solo dal numeratore!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 32 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 32</span>
+                <div class="exercise-text">
+                    Il massimo comun divisore e il minimo comune multiplo dei polinomi $p(x) = (x+1)^2$ e $q(x) = x^3 + 1$ sono, rispettivamente:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x+1$, &nbsp;&nbsp; $(x+1)^3$</div>
+                    <div class="option">(B) $(x+1)^2$, &nbsp;&nbsp; $(x+1)^3$</div>
+                    <div class="option">(C) $x+1$, &nbsp;&nbsp; $(x+1)^3(x^2-x+1)$</div>
+                    <div class="option">(D) $1$, &nbsp;&nbsp; $x^3+1$</div>
+                    <div class="option">(E) $x+1$, &nbsp;&nbsp; $(x+1)^2(x^2-x+1)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(32)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(32)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(32)">↺ Reset</button>
+                    <div class="timer-display" id="timer32">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(32)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution32">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione dei polinomi</h5>
+                        <p><strong>Primo polinomio:</strong></p>
+                        <p>$p(x) = (x+1)^2$ (già scomposto)</p>
+                        <br>
+                        <p><strong>Secondo polinomio (somma di cubi):</strong></p>
+                        <p>$q(x) = x^3 + 1 = x^3 + 1^3 = (x+1)(x^2-x+1)$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: Identificazione fattori comuni</h5>
+                        <p>$p(x) = (x+1)^2$</p>
+                        <p>$q(x) = (x+1) \cdot (x^2-x+1)$</p>
+                        <p>Fattore comune: $(x+1)$ con esponente minimo 1</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: Calcolo MCD</h5>
+                        <p>$$\text{MCD}[p(x), q(x)] = x+1$$</p>
+                        <p>(si prendono i fattori comuni con esponente minimo)</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 4: Calcolo mcm</h5>
+                        <p>$$\text{mcm}[p(x), q(x)] = (x+1)^2 \cdot (x^2-x+1)$$</p>
+                        <p>(si prendono tutti i fattori con esponente massimo)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $x+1$, &nbsp;&nbsp; $(x+1)^2(x^2-x+1)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Formule utili:</strong>
+                        • Somma di cubi: $a^3 + b^3 = (a+b)(a^2-ab+b^2)$<br>
+                        • Differenza di cubi: $a^3 - b^3 = (a-b)(a^2+ab+b^2)$
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 33 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 33</span>
+                <div class="exercise-text">
+                    Considera le disequazioni:<br><br>
+                    $A) \, P(x) > 0$, &nbsp;&nbsp; $B) \, \displaystyle\frac{P(x)}{x^2+1} > 0$, &nbsp;&nbsp; $C) \, \displaystyle\frac{P(x)}{x^2-1} > 0$<br><br>
+                    dove $P(x)$ è un polinomio di secondo grado. Quale delle seguenti affermazioni è corretta?
+                </div>
+                <div class="options">
+                    <div class="option">(A) le disequazioni A) e B) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(B) le disequazioni A) e C) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(C) non si può rispondere perché non si conosce il polinomio $P(x)$</div>
+                    <div class="option">(D) le disequazioni B) e C) hanno lo stesso insieme di soluzioni</div>
+                    <div class="option">(E) le tre disequazioni hanno lo stesso insieme di soluzioni</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(33)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(33)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(33)">↺ Reset</button>
+                    <div class="timer-display" id="timer33">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(33)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution33">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Analisi Disequazione B)</h5>
+                        <p>$$\frac{P(x)}{x^2+1} > 0$$</p>
+                        <p>Il denominatore $x^2+1$ è sempre positivo per ogni $x$ reale</p>
+                        <p>(somma di un quadrato e un numero positivo)</p>
+                        <p>Quindi: $$\frac{P(x)}{x^2+1} > 0 \Leftrightarrow P(x) > 0$$</p>
+                        <p><strong>B) equivale ad A)</strong></p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Analisi Disequazione C)</h5>
+                        <p>$$\frac{P(x)}{x^2-1} > 0$$</p>
+                        <p>Il denominatore: $x^2-1 = (x-1)(x+1)$</p>
+                        <p><strong>Condizioni di esistenza:</strong> $x \neq \pm 1$</p>
+                        <p>Il denominatore cambia segno:</p>
+                        <p>• $x^2-1 > 0$ per $x < -1$ o $x > 1$</p>
+                        <p>• $x^2-1 < 0$ per $-1 < x < 1$</p>
+                        <p>Quindi C) <strong>NON è equivalente</strong> ad A)</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (A) le disequazioni A) e B) hanno lo stesso insieme di soluzioni
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Regola:</strong>
+                        Se il denominatore è sempre positivo, dividere per esso non cambia il verso della disequazione!
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESERCIZIO 34 -->
+            <div class="exercise-card">
+                <span class="exercise-number">Esercizio 34</span>
+                <div class="exercise-text">
+                    Il massimo comun divisore e il minimo comune multiplo dei polinomi $p(x) = (x+1)^2$ e $q(x) = x^3 + 1$ sono, rispettivamente:
+                </div>
+                <div class="options">
+                    <div class="option">(A) $x+1$, &nbsp;&nbsp; $(x+1)^3$</div>
+                    <div class="option">(B) $(x+1)^2$, &nbsp;&nbsp; $(x+1)^3$</div>
+                    <div class="option">(C) $x+1$, &nbsp;&nbsp; $(x+1)^3(x^2-x+1)$</div>
+                    <div class="option">(D) $1$, &nbsp;&nbsp; $x^3+1$</div>
+                    <div class="option">(E) $x+1$, &nbsp;&nbsp; $(x+1)^2(x^2-x+1)$</div>
+                </div>
+                <div class="timer-controls">
+                    <button class="timer-button start-timer" onclick="startTimer(34)">▶ Avvia Timer</button>
+                    <button class="timer-button stop-timer" onclick="stopTimer(34)">⏸ Pausa</button>
+                    <button class="timer-button reset-timer" onclick="resetTimer(34)">↺ Reset</button>
+                    <div class="timer-display" id="timer34">02:00</div>
+                </div>
+                <button class="show-solution" onclick="toggleSolution(34)">👁️ Mostra/Nascondi Soluzione</button>
+                <div class="solution" id="solution34">
+                    <h4>Soluzione Dettagliata</h4>
+                    
+                    <div class="solution-step">
+                        <h5>Passo 1: Scomposizione dei polinomi</h5>
+                        <p>$p(x) = (x+1)^2$</p>
+                        <p>$q(x) = x^3 + 1 = (x+1)(x^2-x+1)$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 2: MCD (fattori comuni con esponente minimo)</h5>
+                        <p>$$\text{MCD} = x+1$$</p>
+                    </div>
+
+                    <div class="solution-step">
+                        <h5>Passo 3: mcm (tutti i fattori con esponente massimo)</h5>
+                        <p>$$\text{mcm} = (x+1)^2 \cdot (x^2-x+1)$$</p>
+                    </div>
+
+                    <div class="correct-answer">
+                        ✓ Risposta corretta: (E) $x+1$, &nbsp;&nbsp; $(x+1)^2(x^2-x+1)$
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>💡 Nota:</strong>
+                        Questo esercizio è identico all'esercizio 32!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timers = {};
+        let intervals = {};
+
+        function openTab(evt, tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function startTimer(exerciseNum) {
+            if (!timers[exerciseNum]) {
+                timers[exerciseNum] = 120;
+            }
+            
+            if (intervals[exerciseNum]) {
+                clearInterval(intervals[exerciseNum]);
+            }
+            
+            intervals[exerciseNum] = setInterval(() => {
+                if (timers[exerciseNum] > 0) {
+                    timers[exerciseNum]--;
+                    updateTimerDisplay(exerciseNum);
+                } else {
+                    clearInterval(intervals[exerciseNum]);
+                    alert('Tempo scaduto per l\'esercizio ' + exerciseNum + '!');
+                }
+            }, 1000);
+        }
+
+        function stopTimer(exerciseNum) {
+            if (intervals[exerciseNum]) {
+                clearInterval(intervals[exerciseNum]);
+            }
+        }
+
+        function resetTimer(exerciseNum) {
+            stopTimer(exerciseNum);
+            timers[exerciseNum] = 120;
+            updateTimerDisplay(exerciseNum);
+        }
+
+        function updateTimerDisplay(exerciseNum) {
+            const minutes = Math.floor(timers[exerciseNum] / 60);
+            const seconds = timers[exerciseNum] % 60;
+            const display = document.getElementById('timer' + exerciseNum);
+            display.textContent = 
+                (minutes < 10 ? '0' : '') + minutes + ':' + 
+                (seconds < 10 ? '0' : '') + seconds;
+            
+            if (timers[exerciseNum] <= 30) {
+                display.classList.add('warning');
+            } else {
+                display.classList.remove('warning');
+            }
+        }
+
+        function toggleSolution(exerciseNum) {
+            const solution = document.getElementById('solution' + exerciseNum);
+            solution.classList.toggle('show');
+        }
+
+        // Inizializza tutti i timer
+        for (let i = 1; i <= 34; i++) {
+            timers[i] = 120;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2277 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preparazione Test Politecnico – Algebra (Teoria + Esercizi)</title>
+
+  <!-- =========================
+       MathJax CONFIG (PRIMA)
+       inline: $...$  display: $$...$$
+  ========================== -->
+  <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    chtml: {
+      linebreaks: { automatic: true, width: "container" }
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  };
+</script>
+
+  <!-- MathJax LIB -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  <style>
+    :root{
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted:#4b5563;
+      --border:#e5e7eb;
+      --accent:#1d4ed8;
+      --accent-2:#0ea5e9;
+      --ok:#065f46;
+      --warn:#b45309;
+      --shadow: 0 10px 25px rgba(17,24,39,.08);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --space: 18px;
+      --maxw: 1100px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(29,78,216,.10), transparent 60%),
+                  radial-gradient(1000px 500px at 90% 0%, rgba(14,165,233,.10), transparent 55%),
+                  var(--bg);
+      line-height: 1.35;
+      font-size: 18px; /* LIM-friendly */
+    }
+    header{
+      max-width: var(--maxw);
+      margin: 28px auto 14px;
+      padding: 0 18px;
+    }
+    .title{
+      display:flex; flex-direction:column; gap:10px;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    h1{
+      margin:0;
+      font-size: 26px;
+      letter-spacing: .2px;
+    }
+    .subtitle{
+      margin:0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .container{
+      max-width: var(--maxw);
+      margin: 0 auto 42px;
+      padding: 0 18px;
+    }
+
+    /* Tabs */
+    .tabs{
+      display:flex;
+      gap:10px;
+      margin: 16px 0 14px;
+      flex-wrap: wrap;
+    }
+    .tab-btn{
+      appearance:none;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.8);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 650;
+      color: var(--muted);
+      cursor:pointer;
+      transition: .15s ease;
+    }
+    .tab-btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 18px rgba(17,24,39,.08); }
+    .tab-btn[aria-selected="true"]{
+      background: #fff;
+      border-color: rgba(29,78,216,.35);
+      color: var(--accent);
+      box-shadow: 0 10px 22px rgba(29,78,216,.10);
+    }
+    .tab-panel{ display:none; }
+    .tab-panel.active{ display:block; }
+
+    /* Cards and layout */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .card + .card{ margin-top: 2px; }
+
+    .section-title{
+      margin:0 0 12px;
+      font-size: 20px;
+    }
+    .muted{ color: var(--muted); }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: #fff;
+      font-size: 14px;
+      color: var(--muted);
+      margin: 8px 10px 0 0;
+      white-space: nowrap;
+    }
+    .kpi{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    /* Theory */
+    .theory{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .theory .box{
+      border:1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 14px 12px;
+      background: linear-gradient(180deg, rgba(29,78,216,.04), rgba(255,255,255,0));
+    }
+    .theory h3{
+      margin:0 0 10px;
+      font-size: 18px;
+    }
+    .theory ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+    .theory li{ margin: 8px 0; }
+    .note{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px dashed rgba(29,78,216,.35);
+      background: rgba(29,78,216,.04);
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    /* Exercises */
+    .toolbar{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .search{
+      display:flex; gap:10px; align-items:center;
+      background: rgba(255,255,255,.8);
+      border:1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 12px;
+      min-width: min(520px, 100%);
+    }
+    .search input{
+      border:none;
+      outline:none;
+      width: 100%;
+      font-size: 16px;
+      background: transparent;
+      color: var(--text);
+    }
+    .small{
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .ex-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .ex-title{
+      margin:0;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .ex-meta{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content:flex-end;
+      min-width: 260px;
+    }
+    .timer{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 10px;
+      background:#fff;
+    }
+    .timer .time{
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 16px;
+      min-width: 64px;
+      text-align:center;
+    }
+    .btn{
+      appearance:none;
+      border: 1px solid var(--border);
+      background:#fff;
+      color: var(--text);
+      padding: 8px 10px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight: 700;
+      transition: .15s ease;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 18px rgba(17,24,39,.08); }
+    .btn.primary{
+      border-color: rgba(29,78,216,.35);
+      background: rgba(29,78,216,.06);
+      color: var(--accent);
+    }
+    .btn.danger{
+      border-color: rgba(180,83,9,.35);
+      background: rgba(180,83,9,.06);
+      color: var(--warn);
+    }
+    .btn.solution{
+      border-color: rgba(14,165,233,.35);
+      background: rgba(14,165,233,.06);
+      color: #0369a1;
+    }
+    .statement{
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .options{
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(17,24,39,.02), rgba(255,255,255,0));
+    }
+    .options h4{
+      margin:0 0 10px;
+      font-size: 16px;
+    }
+    .opt-list{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style:none;
+    }
+    .opt{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background:#fff;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(29,78,216,.10);
+      border: 1px solid rgba(29,78,216,.18);
+      flex: 0 0 auto;
+    }
+    .opt .txt{ flex: 1 1 auto; }
+    .solution-wrap{
+      margin-top: 14px;
+      border-top: 1px dashed var(--border);
+      padding-top: 14px;
+      display:none;
+    }
+    .solution-wrap.open{ display:block; }
+    .solution-box{
+      border: 1px solid rgba(6,95,70,.25);
+      background: rgba(6,95,70,.04);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .answer{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .answer .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(6,95,70,.25);
+      background: rgba(6,95,70,.08);
+      color: var(--ok);
+      font-weight: 900;
+    }
+    .steps{
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+    .steps li{ margin: 8px 0; }
+    .warnbox{
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(180,83,9,.25);
+      background: rgba(180,83,9,.06);
+      color: #7c2d12;
+      font-size: 16px;
+    }
+
+    @media (min-width: 980px){
+      .theory{ grid-template-columns: 1fr 1fr; }
+      .opt-list{ grid-template-columns: 1fr 1fr; }
+    }
+	
+				/* --- MathJax: evita overflow dai box --- */
+	.theory, .theory .box { overflow: hidden; }
+
+	/* I contenitori MathJax non devono mai superare la larghezza disponibile */
+	mjx-container { max-width: 100% !important; }
+
+	/* Le formule display, se ancora troppo larghe, scorrono orizzontalmente invece di “sfondare” */
+	mjx-container[display="true"]{
+	  overflow-x: auto;
+	  overflow-y: hidden;
+	  display: block;
+	  max-width: 100% !important;
+	  -webkit-overflow-scrolling: touch;
+	}
+
+	/* Un po’ di respiro a sinistra/destra per le formule display dentro le liste */
+	.theory li mjx-container[display="true"]{
+	  padding: 2px 2px;
+	}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="title">
+      <h1>Preparazione Test di Ingresso (Politecnico) – Algebra</h1>
+      <p class="subtitle">
+        Lezione (2 ore) orientata agli esercizi: <strong>teoria essenziale</strong> + <strong>quiz con svolgimento a comparsa</strong> e <strong>timer 2:00</strong> per ogni esercizio.
+      </p>
+      
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="tabs" role="tablist" aria-label="Schede">
+      <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tab-teoria" id="btn-teoria">Teoria (scheda)</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-esercizi" id="btn-esercizi">Esercizi (scheda)</button>
+	  <button class="tab-btn"
+        type="button"
+        onclick="window.location.href='L5_Algebra_claude.html'">
+		Esercizi (Claude)
+	  </button>
+
+
+    </nav>
+
+    <!-- =========================
+         TAB: TEORIA
+    ========================== -->
+    <section id="tab-teoria" class="tab-panel active" role="tabpanel" aria-labelledby="btn-teoria">
+      <div class="card">
+        <h2 class="section-title">Scheda di teoria essenziale (mirata agli esercizi)</h2>
+        <p class="muted" style="margin-top:0">
+          Obiettivo: avere in una pagina gli strumenti minimi per risolvere rapidamente i quesiti tipici del test.
+        </p>
+
+        <div class="theory">
+          <div class="box">
+            <h3>1) Prodotti notevoli (da riconoscere “al volo”)</h3>
+            <ul>
+              <li>$$(a+b)^2=a^2+2ab+b^2,\qquad (a-b)^2=a^2-2ab+b^2$$</li>
+              <li>$$(a+b)(a-b)=a^2-b^2$$</li>
+              <li>$$(a+b)^3=a^3+3a^2b+3ab^2+b^3$$</li>
+              <li>$$(a-b)^3=a^3-3a^2b+3ab^2-b^3$$</li>
+              <li>Catena “a telescopio”:
+                $$(a+b)(a-b)(a^2+b^2)(a^4+b^4)=a^8-b^8$$
+              </li>
+            </ul>
+            <div class="note">
+              Errore tipico: dimenticare i segni nei quadrati/cubi del binomio.
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>2) Scomposizioni (factorization)</h3>
+            <ul>
+              <li><strong>Raccoglimento</strong>: $ax+ay=a(x+y)$.</li>
+              <li><strong>Raccoglimento totale/parziale</strong> (a gruppi).</li>
+              <li><strong>Differenza di quadrati</strong>: $a^2-b^2=(a-b)(a+b)$.</li>
+              <li><strong>Trinomio di 2° grado</strong>: $x^2+px+q=(x-r_1)(x-r_2)$ con $r_1+r_2=-p$ e $r_1r_2=q$ (se esiste la scomposizione reale/intera).</li>
+              <li><strong>Somma/differenza di cubi</strong>:
+                $$a^3+b^3=(a+b)(a^2-ab+b^2),\quad a^3-b^3=(a-b)(a^2+ab+b^2).$$
+              </li>
+            </ul>
+            <div class="note">
+              Strategia: prima prova sempre un raccoglimento; poi riconosci prodotti notevoli.
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>3) Divisione tra polinomi (e Ruffini)</h3>
+            <ul>
+              <li><strong>Divisione</strong>: $P(x)=D(x)\,Q(x)+R(x)$ con $\deg R&lt;\deg D$.</li>
+              <li><strong>Teorema del resto</strong>: dividendo per $(x-a)$, il resto è $P(a)$.</li>
+              <li><strong>Condizione di divisibilità</strong>: $(x-a)$ divide $P(x)$ $\Leftrightarrow$ $P(a)=0$.</li>
+              <li><strong>Ruffini</strong> si usa quando il divisore è lineare $(x-a)$.</li>
+            </ul>
+            <div class="note">
+              Errore tipico: confondere “divisibile per $x^2-1$” con “divisibile per $(x-1)^2$”.
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>4) MCD/MCM tra monomi e tra polinomi</h3>
+            <ul>
+              <li><strong>MCD monomi</strong>: coefficiente = $\gcd$ dei coefficienti; per ogni variabile prendi l’<strong>esponente minimo</strong>.</li>
+              <li><strong>MCM monomi</strong>: coefficiente = $\operatorname{lcm}$ dei coefficienti; per ogni variabile prendi l’<strong>esponente massimo</strong>.</li>
+              <li><strong>MCD/MCM polinomi</strong>: scomponi in fattori; MCD = fattori comuni con esponente minimo; MCM = tutti i fattori con esponente massimo.</li>
+            </ul>
+            <div class="note">
+              Check rapido: MCD “entra” in tutti; MCM è multiplo di tutti.
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>5) Equazioni frazionarie del tipo $\dfrac{N(x)}{D(x)}=0$</h3>
+            <ul>
+              <li>Una frazione è zero se e solo se $N(x)=0$ <strong>e</strong> $D(x)\neq 0$.</li>
+              <li>Passo obbligatorio: <strong>dominio</strong> (valori che annullano il denominatore sono esclusi).</li>
+            </ul>
+            <div class="note">
+              Errore tipico: includere soluzioni che annullano anche il denominatore (soluzioni “spurie”).
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>6) Numero e segno delle soluzioni (2° grado)</h3>
+            <ul>
+              <li>Per $ax^2+bx+c=0$: discriminante $\Delta=b^2-4ac$.
+                <ul>
+                  <li>$\Delta&gt;0$: 2 soluzioni reali distinte</li>
+                  <li>$\Delta=0$: 1 soluzione reale (doppia)</li>
+                  <li>$\Delta&lt;0$: nessuna soluzione reale</li>
+                </ul>
+              </li>
+              <li><strong>Segno delle radici (Vieta)</strong>:
+                $$r_1+r_2=-\frac{b}{a},\qquad r_1r_2=\frac{c}{a}.$$
+                In particolare: radici di segno opposto $\Leftrightarrow r_1r_2&lt;0 \Leftrightarrow \frac{c}{a}&lt;0$ (e serve anche $\Delta\ge 0$).
+              </li>
+              <li><strong>Regola dei segni (Cartesio)</strong> (per polinomi di grado superiore):
+                il numero di radici reali positive è uguale al numero di variazioni di segno (o minore di un numero pari).
+              </li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>7) Potenze e radicali</h3>
+            <ul>
+              <li>$a^{m}a^{n}=a^{m+n}$, $\dfrac{a^m}{a^n}=a^{m-n}$, $(a^m)^n=a^{mn}$.</li>
+              <li>$\sqrt[n]{a^k}=a^{k/n}$ (con attenzione al dominio se $n$ è pari).</li>
+              <li>Se $x&gt;0$, allora $(2x+3)&gt;0$ e si possono sommare/sottrarre esponenti senza ambiguità sul valore assoluto.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>8) Disequazioni razionali: denominatori sempre positivi vs variabili</h3>
+            <ul>
+              <li>Se $D(x)&gt;0$ per ogni $x$ (es. $x^2+1$, oppure $x^2+x+1$ con $\Delta&lt;0$), allora
+                $$\frac{P(x)}{D(x)}\;\gtrless\;0 \;\Longleftrightarrow\; P(x)\;\gtrless\;0.$$
+              </li>
+              <li>Se $D(x)$ cambia segno (es. $(x-1)(x-2)$), serve lo <strong>studio del segno</strong> con tabella/diagramma.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         TAB: ESERCIZI
+    ========================== -->
+    <section id="tab-esercizi" class="tab-panel" role="tabpanel" aria-labelledby="btn-esercizi">
+      <div class="card">
+        <div class="toolbar">
+          <div class="search" role="search">
+            <strong class="small">Cerca:</strong>
+            <input id="searchInput" type="search" placeholder="Esempi: 'mcm', 'radici', 'polinomio', 'disequazioni', 'tasse'..." />
+          </div>
+          <div class="small">
+            Suggerimento didattico: fate <strong>2 minuti</strong> di lavoro individuale, poi aprite lo svolgimento.
+          </div>
+        </div>
+
+        <div id="exList" class="grid">
+
+          <!-- ========= EX 1 ========= -->
+          <article class="card ex" data-tags="equazioni frazionarie dominio insieme soluzioni">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 1 — Confronto tra insiemi soluzione</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex1">
+                  <span class="time" id="time-ex1">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex1">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex1">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex1">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Considera le equazioni
+              $$\text{A) }\frac{x^2-3x}{x^2-9}=0 \qquad \text{e} \qquad
+              \text{B) }\frac{x^2-3x}{x^2-3x+9}=0.$$
+              Quale affermazione è vera?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">L’insieme delle soluzioni di A è incluso nell’insieme delle soluzioni di B.</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">Le due equazioni hanno lo stesso insieme di soluzioni.</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">Le due equazioni non hanno soluzioni comuni.</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">L’insieme delle soluzioni di B è incluso nell’insieme delle soluzioni di A.</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">Le due equazioni hanno due soluzioni in comune.</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex1" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: A</span>
+                  <span class="muted">Idea chiave: $\frac{N}{D}=0 \Leftrightarrow N=0$ e $D\neq 0$.</span>
+                </div>
+                <ol class="steps">
+                  <li>Scomponi il numeratore: $x^2-3x=x(x-3)$.</li>
+                  <li><strong>Equazione A</strong>: denominatore $x^2-9=(x-3)(x+3)$, quindi <em>dominio</em>: $x\neq 3$, $x\neq -3$.</li>
+                  <li>Per avere frazione zero serve $x(x-3)=0 \Rightarrow x=0$ oppure $x=3$, ma $x=3$ è escluso dal dominio. Quindi $S_A=\{0\}$.</li>
+                  <li><strong>Equazione B</strong>: denominatore $x^2-3x+9$ ha $\Delta=9-36=-27&lt;0$, quindi è sempre positivo e non si annulla mai.</li>
+                  <li>Allora $x(x-3)=0 \Rightarrow S_B=\{0,3\}$.</li>
+                  <li>Conclusione: $S_A=\{0\}\subset\{0,3\}=S_B$.</li>
+                </ol>
+                <div class="warnbox">
+                  Errore tipico: dimenticare l’esclusione dei valori che annullano il denominatore (qui $x=3$ in A).
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 2 ========= -->
+          <article class="card ex" data-tags="semplificazione polinomi prodotti notevoli scomposizioni">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 2 — Semplificazione di espressione</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex2">
+                  <span class="time" id="time-ex2">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex2">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex2">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex2">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Semplificando l’espressione
+              $$ (1-3x)(4x^3+12x^4):(-4x^3) \quad \text{dove } x\neq 0,$$
+              si ottiene
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$1-3x$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$1$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$9x^2-1$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$1-9x^2$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$1+9x^2-6x$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex2" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                  <span class="muted">Idea: raccogliere fattori e riconoscere $(1-3x)(1+3x)$.</span>
+                </div>
+                <ol class="steps">
+                  <li>Raccogli nel secondo fattore: $4x^3+12x^4=4x^3(1+3x)$.</li>
+                  <li>Sostituisci:
+                    $$ (1-3x)\cdot 4x^3(1+3x):(-4x^3). $$
+                  </li>
+                  <li>Semplifica $4x^3$ con $-4x^3$ (possibile perché $x\neq 0$):
+                    $$=-(1-3x)(1+3x).$$
+                  </li>
+                  <li>Prodotto notevole: $(1-3x)(1+3x)=1-(3x)^2=1-9x^2$.</li>
+                  <li>Con il “meno” davanti: $-(1-9x^2)=9x^2-1$.</li>
+                </ol>
+                <div class="warnbox">
+                  Errore tipico: perdere il segno “meno” dovuto alla divisione per $(-4x^3)$.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 3 ========= -->
+          <article class="card ex" data-tags="mcm monomi">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 3 — Minimo comune multiplo tra monomi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex3">
+                  <span class="time" id="time-ex3">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex3">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex3">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex3">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Il minimo comune multiplo dei monomi
+              $$8x^3y^6,\quad 6x^2y^6z^2,\quad x^4y^3 \ \text{è}$$
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$x^4y^3$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$x^2y^3z$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$24x^3y^3$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$24x^2z^2$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$24x^4y^6z^2$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex3" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Coefficienti: $\operatorname{lcm}(8,6,1)=24$.</li>
+                  <li>Variabile $x$: esponenti $3,2,4 \Rightarrow \max=4$.</li>
+                  <li>Variabile $y$: esponenti $6,6,3 \Rightarrow \max=6$.</li>
+                  <li>Variabile $z$: esponenti $0,2,0 \Rightarrow \max=2$.</li>
+                  <li>Quindi $\mathrm{mcm}=24x^4y^6z^2$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 4 ========= -->
+          <article class="card ex" data-tags="equazioni scomposizioni grado alto">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 4 — Numero di soluzioni di un’equazione</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex4">
+                  <span class="time" id="time-ex4">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex4">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex4">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex4">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              L’equazione $$(x^5-4x^3)^2=0$$ ha:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">nessuna soluzione reale</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">dieci soluzioni reali distinte</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">solamente la soluzione $x=0$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">solamente le soluzioni $x=0$ e $x=2$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">tre soluzioni reali distinte</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex4" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Se $(A)^2=0$, allora necessariamente $A=0$.</li>
+                  <li>Quindi $x^5-4x^3=0$.</li>
+                  <li>Raccogli: $x^3(x^2-4)=0$.</li>
+                  <li>Da $x^3=0 \Rightarrow x=0$; da $x^2-4=0 \Rightarrow x=\pm 2$.</li>
+                  <li>Soluzioni reali distinte: $x\in\{-2,0,2\}$ (3 soluzioni).</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 5 ========= -->
+          <article class="card ex" data-tags="fattori primi potenze">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 5 — Scomposizione in fattori primi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex5">
+                  <span class="time" id="time-ex5">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex5">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex5">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex5">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              La scomposizione in fattori primi del numero
+              $$\bigl(3^4+3^2\bigr)^3\,5^2$$
+              è:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$2^6 3^6 5^5$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$2^2 3^6 5^3$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$2^3 3^6 5^4$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$2^3 3^6 5^5$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$2^4 3^6 5^5$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex5" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                </div>
+                <ol class="steps">
+                  <li>Raccogli nella parentesi: $3^4+3^2=3^2(3^2+1)=3^2(9+1)=3^2\cdot 10$.</li>
+                  <li>Quindi $(3^4+3^2)^3=(3^2\cdot 10)^3=3^6\cdot 10^3$.</li>
+                  <li>$10^3=(2\cdot 5)^3=2^3\cdot 5^3$.</li>
+                  <li>Moltiplicando per $5^2$: $3^6\cdot 2^3\cdot 5^{3+2}=2^3 3^6 5^5$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 6 ========= -->
+          <article class="card ex" data-tags="problemi velocità tempo distanza">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 6 — Problema di velocità (autocarro e automobile)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex6">
+                  <span class="time" id="time-ex6">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex6">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex6">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex6">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Per coprire i $120$ km tra Torino e Milano un autocarro impiega $2$ ore e $40$ minuti.
+              Un’automobile parte da Torino diretta a Milano <strong>tre quarti d’ora dopo</strong> l’autocarro e viaggia a velocità media <strong>doppia</strong>.
+              Allora:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">arrivano insieme a Milano</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">l’auto arriva $35$ minuti prima dell’autocarro</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">l’auto arriva $15$ minuti dopo l’autocarro</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">l’auto arriva $35$ minuti dopo l’autocarro</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">l’auto arriva $15$ minuti prima dell’autocarro</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex6" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>Tempo autocarro: $2\text{h }40\text{m}=2+\frac{40}{60}=\frac{8}{3}$ ore.</li>
+                  <li>Velocità autocarro: $v=\dfrac{120}{8/3}=120\cdot \dfrac{3}{8}=45$ km/h.</li>
+                  <li>Velocità auto: $2v=90$ km/h.</li>
+                  <li>Tempo di viaggio auto: $\dfrac{120}{90}=\dfrac{4}{3}$ ore $=1\text{h }20\text{m}$.</li>
+                  <li>L’auto parte $45$ minuti dopo: $0\text{h }45\text{m}$.</li>
+                  <li>Arrivo auto dopo la partenza dell’autocarro: $45\text{m}+1\text{h }20\text{m}=2\text{h }05\text{m}$.</li>
+                  <li>Arrivo autocarro: $2\text{h }40\text{m}$. Differenza: $35$ minuti, quindi l’auto arriva prima.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 7 ========= -->
+          <article class="card ex" data-tags="fattori primi potenze">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 7 — Scomposizione in fattori primi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex7">
+                  <span class="time" id="time-ex7">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex7">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex7">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex7">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              La scomposizione in fattori primi del numero
+              $$\bigl(5^4-5^2\bigr)^2\,3^2$$
+              è:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$2^3 3^3 5^4$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$2^4 3^2 5^4$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$2^6 3^2 5^4$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$2^6 3^4 5^4$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$2^6 3^4 5^2$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex7" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                </div>
+                <ol class="steps">
+                  <li>$5^4-5^2=5^2(5^2-1)=5^2(25-1)=5^2\cdot 24$.</li>
+                  <li>$24=2^3\cdot 3$, quindi $5^4-5^2=5^2\cdot 2^3\cdot 3$.</li>
+                  <li>Quadrato: $(5^2\cdot 2^3\cdot 3)^2=5^4\cdot 2^6\cdot 3^2$.</li>
+                  <li>Moltiplica per $3^2$: $2^6\cdot 3^4\cdot 5^4$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 8 ========= -->
+          <article class="card ex" data-tags="radicali potenze esponenti">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 8 — Radicali ed esponenti razionali</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex8">
+                  <span class="time" id="time-ex8">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex8">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex8">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex8">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Sia $x$ un numero reale positivo. Il numero reale
+              $$\frac{\sqrt[4]{\sqrt{(2x+3)^3}}}{\sqrt[6]{(2x+3)}}$$
+              è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$\sqrt[7]{(2x+3)^{12}}$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$\sqrt{(2x+3)}$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$\sqrt[6]{(2x+3)^2}$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$\sqrt[24]{(2x+3)^5}$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$\sqrt[12]{(2x+3)^7}$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex8" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                  <span class="muted">Nota: con $x&gt;0$ abbiamo $(2x+3)&gt;0$, quindi le potenze frazionarie sono “pulite”.</span>
+                </div>
+                <ol class="steps">
+                  <li>Scrivi con esponenti: $\sqrt{(2x+3)^3}=(2x+3)^{3/2}$.</li>
+                  <li>Poi la radice quarta: $\sqrt[4]{(2x+3)^{3/2}}=(2x+3)^{\frac{3}{2}\cdot\frac{1}{4}}=(2x+3)^{3/8}$.</li>
+                  <li>Denominatore: $\sqrt[6]{(2x+3)}=(2x+3)^{1/6}$.</li>
+                  <li>Dividendo: $(2x+3)^{3/8}/(2x+3)^{1/6}=(2x+3)^{3/8-1/6}$.</li>
+                  <li>Calcolo: $\frac{3}{8}-\frac{1}{6}=\frac{9}{24}-\frac{4}{24}=\frac{5}{24}$.</li>
+                  <li>Quindi $(2x+3)^{5/24}=\sqrt[24]{(2x+3)^5}$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 9 ========= -->
+          <article class="card ex" data-tags="mcd monomi divisore comune">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 9 — Divisore comune tra monomi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex9">
+                  <span class="time" id="time-ex9">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex9">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex9">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex9">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Un divisore comune dei monomi
+              $$8a^3x^6,\quad 4a^2x^6y,\quad a^4bx^3y^2 \ \text{è}$$
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$a^3x^6y^2$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$a^2bx^6y$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$a^2x^3$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$axy$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$x^6y^2$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex9" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Per un divisore comune scegli esponenti <strong>non maggiori</strong> di quelli presenti in tutti.</li>
+                  <li>Coefficiente: puoi prendere $1$ (sempre divisore).</li>
+                  <li>$a$: esponenti $3,2,4 \Rightarrow$ minimo $2$ quindi $a^2$.</li>
+                  <li>$x$: esponenti $6,6,3 \Rightarrow$ minimo $3$ quindi $x^3$.</li>
+                  <li>$y$ non è presente nel primo monomio (esponente 0), quindi nel MCD avrebbe $y^0$ (cioè non compare).</li>
+                  <li>Quindi un divisore comune è $a^2x^3$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 10 ========= -->
+          <article class="card ex" data-tags="equazioni sostituzione grado alto">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 10 — Equazione di grado 6 con sostituzione</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex10">
+                  <span class="time" id="time-ex10">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex10">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex10">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex10">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              L’equazione $$4x^6-12x^3=-9$$
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">ha tre soluzioni distinte</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">non può essere risolta, perché di grado troppo elevato</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">ha sei soluzioni reali distinte</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">ha due (e solo due) soluzioni reali distinte</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">ha una e una sola soluzione reale</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex10" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Porta tutto a sinistra: $4x^6-12x^3+9=0$.</li>
+                  <li>Poni $t=x^3$ (sostituzione tipica): ottieni $4t^2-12t+9=0$.</li>
+                  <li>Discriminante: $\Delta=(-12)^2-4\cdot 4\cdot 9=144-144=0$.</li>
+                  <li>Quindi c’è una soluzione reale (doppia) per $t$: $t=\dfrac{12}{8}=\dfrac{3}{2}$.</li>
+                  <li>Ritorna a $x$: $x^3=\dfrac{3}{2}$ ha <strong>una sola</strong> soluzione reale:
+                    $$x=\sqrt[3]{\frac{3}{2}}.$$
+                    (Le altre due soluzioni di $x^3=t$ sono complesse.)
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 11 ========= -->
+          <article class="card ex" data-tags="problemi equazioni sistema età">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 11 — Problema di età (sistema)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex11">
+                  <span class="time" id="time-ex11">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex11">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex11">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex11">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Una donna ha due figli, Anna e Martino.
+              L’età della donna più quella di Anna supera quella di Martino di $60$ anni.
+              L’età della donna più quella di Martino supera quella di Anna di $70$ anni.
+              Quanti anni ha la donna?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$54$ anni</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$68$ anni</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$45$ anni</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$65$ anni</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$70$ anni</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex11" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                </div>
+                <ol class="steps">
+                  <li>Indichiamo con $D$ l’età della donna, con $A$ l’età di Anna, con $M$ l’età di Martino.</li>
+                  <li>Traduci le frasi:
+                    $$D+A=M+60,\qquad D+M=A+70.$$
+                  </li>
+                  <li>Dalla prima: $M=D+A-60$.</li>
+                  <li>Sostituisci nella seconda:
+                    $$D+(D+A-60)=A+70 \Rightarrow 2D-60=70 \Rightarrow 2D=130 \Rightarrow D=65.$$
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 12 ========= -->
+          <article class="card ex" data-tags="semplificazione frazioni algebriche dominio">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 12 — Semplificazione con frazioni algebriche</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex12">
+                  <span class="time" id="time-ex12">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex12">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex12">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex12">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Semplificando l’espressione
+              $$\left(\frac{\frac{z^2-1}{z-1}}{\frac{1}{z^2+1}}\right)\cdot \frac{1}{z+\frac{1}{z}},\quad \text{dove } z\neq 0,\ z\neq \pm 1,$$
+              si ottiene:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$z(z-1)$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$\dfrac{z-1}{z+1}$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$\dfrac{z}{z-1}$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$\dfrac{z}{z+1}$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$z(z+1)$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex12" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Dividere per $\frac{1}{z^2+1}$ equivale a moltiplicare per $(z^2+1)$:
+                    $$\left(\frac{z^2-1}{z-1}\right)(z^2+1)\cdot \frac{1}{z+\frac{1}{z}}.$$
+                  </li>
+                  <li>Scomponi $z^2-1=(z-1)(z+1)$ e semplifica:
+                    $$\frac{z^2-1}{z-1}=z+1 \quad (\text{vale perché } z\neq 1).$$
+                  </li>
+                  <li>Ottieni: $(z+1)(z^2+1)\cdot \frac{1}{z+\frac{1}{z}}$.</li>
+                  <li>Somma: $z+\frac{1}{z}=\frac{z^2+1}{z}$ (vale perché $z\neq 0$).</li>
+                  <li>Quindi $\dfrac{1}{z+\frac{1}{z}}=\dfrac{z}{z^2+1}$.</li>
+                  <li>Moltiplica e semplifica $(z^2+1)$:
+                    $$(z+1)(z^2+1)\cdot \frac{z}{z^2+1}=z(z+1).$$
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 13 ========= -->
+          <article class="card ex" data-tags="polinomi radici teorema del resto">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 13 — Verifica di radice di un polinomio</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex13">
+                  <span class="time" id="time-ex13">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex13">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex13">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex13">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Si consideri il polinomio $P(x)=16x^3-4x^2+3$. Possiamo affermare che:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$x=\dfrac12$ è una radice di $P(x)$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$x=-\dfrac12$ è una radice di $P(x)$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$P(x)$ non ha radici reali</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">ogni numero reale è radice di $P(x)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$x=0$ è una radice di $P(x)$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex13" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                  <span class="muted">Metodo: teorema del resto → prova diretta $P(a)$.</span>
+                </div>
+                <ol class="steps">
+                  <li>Calcola $P\!\left(\frac12\right)=16\cdot\frac{1}{8}-4\cdot\frac{1}{4}+3=2-1+3=4\neq 0$ ⇒ A è falsa.</li>
+                  <li>Calcola $P\!\left(-\frac12\right)=16\cdot\left(-\frac{1}{8}\right)-4\cdot\frac{1}{4}+3=-2-1+3=0$ ⇒ $-\frac12$ è radice.</li>
+                  <li>Quindi la risposta corretta è B.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 14 ========= -->
+          <article class="card ex" data-tags="polinomi secondo grado valori sistema">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 14 — Determinare un valore di $p(x)$</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex14">
+                  <span class="time" id="time-ex14">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex14">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex14">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex14">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Sia $p(x)=ax^2+bx-4$ un polinomio di secondo grado.
+              Se $p(3)=8$ e $p(2)=-4$, allora $p(-1)$ è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$12$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$6$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$10$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$-2$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$8$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex14" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Imponi $p(3)=8$: $9a+3b-4=8 \Rightarrow 9a+3b=12 \Rightarrow 3a+b=4$.</li>
+                  <li>Imponi $p(2)=-4$: $4a+2b-4=-4 \Rightarrow 4a+2b=0 \Rightarrow 2a+b=0$.</li>
+                  <li>Sottrai le due equazioni: $(3a+b)-(2a+b)=4-0 \Rightarrow a=4$.</li>
+                  <li>Da $2a+b=0$: $8+b=0 \Rightarrow b=-8$.</li>
+                  <li>Calcola $p(-1)=a(-1)^2+b(-1)-4=4+8-4=8$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 15 ========= -->
+          <article class="card ex" data-tags="radicali raccoglimento semplificazione">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 15 — Raccoglimento con radicali</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex15">
+                  <span class="time" id="time-ex15">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex15">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex15">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex15">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Siano $a$ e $b$ due numeri reali positivi. L’espressione
+              $$\sqrt{a^2b}+2\sqrt{b^5}-3a\sqrt{b}+2b\sqrt{b}-b^2\sqrt{b}$$
+              è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$\sqrt{b}(2b+2a+b^2)$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$\sqrt{b}(2b-2a+b^2)$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$\sqrt{2b}(2b-2a+b^2)$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$2\sqrt{b}(b+a+b^2)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$2\sqrt{b}(b-a+b^2)$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex15" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>Poiché $a,b&gt;0$: $\sqrt{a^2b}=a\sqrt{b}$ e $\sqrt{b^5}=b^2\sqrt{b}$.</li>
+                  <li>Sostituisci:
+                    $$a\sqrt{b}+2b^2\sqrt{b}-3a\sqrt{b}+2b\sqrt{b}-b^2\sqrt{b}.$$
+                  </li>
+                  <li>Somma i coefficienti di $\sqrt{b}$:
+                    $$\bigl(a-3a\bigr)\sqrt{b}+\bigl(2b^2-b^2\bigr)\sqrt{b}+2b\sqrt{b}
+                    =(-2a+b^2+2b)\sqrt{b}.$$
+                  </li>
+                  <li>Quindi $\sqrt{b}(b^2+2b-2a)$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 16 ========= -->
+          <article class="card ex" data-tags="vieta radici inverse secondo grado">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 16 — Radici reciproche (condizione su $a$)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex16">
+                  <span class="time" id="time-ex16">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex16">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex16">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex16">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Se $a\neq 0$, le radici del polinomio
+              $$a^2x^2-4ax+3$$
+              sono una l’inverso dell’altra per:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$a=3$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">ogni $a$ reale</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$a=\pm\sqrt{2}$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$a=\pm\sqrt{3}$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">nessun $a$ reale</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex16" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                </div>
+                <ol class="steps">
+                  <li>Se le radici sono reciproche: $r_1r_2=1$.</li>
+                  <li>Per $Ax^2+Bx+C$, vale $r_1r_2=\dfrac{C}{A}$ (Vieta).</li>
+                  <li>Qui $A=a^2$ e $C=3$, quindi $r_1r_2=\dfrac{3}{a^2}$.</li>
+                  <li>Imponi $\dfrac{3}{a^2}=1 \Rightarrow a^2=3 \Rightarrow a=\pm\sqrt{3}$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 17 (DUPLICATO) ========= -->
+          <article class="card ex" data-tags="polinomi radici teorema del resto duplicato">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 17 — (Ripetuto) Radice di $P(x)=16x^3-4x^2+3$</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex17">
+                  <span class="time" id="time-ex17">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex17">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex17">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex17">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Si consideri $P(x)=16x^3-4x^2+3$. Quale affermazione è vera?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$x=\dfrac12$ è una radice</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$x=-\dfrac12$ è una radice</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">nessuna radice reale</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">tutti i reali sono radici</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$x=0$ è una radice</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex17" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>Prova $x=-\frac12$: $P(-\frac12)=-2-1+3=0$ ⇒ è radice.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 18 ========= -->
+          <article class="card ex" data-tags="percentuali tasse problemi">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 18 — Tasse a scaglioni</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex18">
+                  <span class="time" id="time-ex18">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex18">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex18">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex18">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Un contribuente con reddito imponibile annuo di € $40\,000$ deve calcolare l’imposta dovuta:
+              20% fino a € $20\,000$, 25% tra € $20\,000$ e € $36\,000$, 30% oltre € $36\,000$.
+              L’imposta dovuta è:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">superiore a € $12\,000$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">compresa tra € $8\,800$ e € $9\,000$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">superiore a € $9\,000$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">inferiore a € $8\,000$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">compresa tra € $8\,600$ e € $8\,800$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex18" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Primo scaglione: $20\%$ di $20\,000$ → $0.2\cdot 20000=4000$.</li>
+                  <li>Secondo scaglione: tra $20\,000$ e $36\,000$ ci sono $16\,000$ → $0.25\cdot 16000=4000$.</li>
+                  <li>Terzo scaglione: oltre $36\,000$ ci sono $4\,000$ → $0.30\cdot 4000=1200$.</li>
+                  <li>Totale: $4000+4000+1200=9200$ (quindi &gt; €9000).</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 19 ========= -->
+          <article class="card ex" data-tags="secondo grado segno radici vieta">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 19 — Radici reali di segno opposto</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex19">
+                  <span class="time" id="time-ex19">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex19">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex19">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex19">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Quale delle seguenti equazioni ha radici reali di segno opposto?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$x^2+10x-1=0$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$5x-x^2=0$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$5x^2+1=0$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$5x^2-x+5=0$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$5x^2-10=0$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex19" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Nota didattica</span>
+                  <span class="muted">Con i dati così scritti risultano corrette <strong>due</strong> opzioni: A ed E (entrambe hanno prodotto delle radici negativo e $\Delta\ge 0$).</span>
+                </div>
+                <ol class="steps">
+                  <li>Criterio rapido (Vieta): per $ax^2+bx+c=0$, radici di segno opposto $\Rightarrow \frac{c}{a}&lt;0$ (e serve $\Delta\ge 0$).</li>
+                  <li><strong>A</strong>: $\frac{c}{a}=\frac{-1}{1}=-1&lt;0$ e $\Delta=100+4=104&gt;0$ ⇒ sì.</li>
+                  <li><strong>E</strong>: $\frac{c}{a}=\frac{-10}{5}=-2&lt;0$ e $\Delta=0-4\cdot 5\cdot(-10)=200&gt;0$ ⇒ sì (radici $x=\pm\sqrt{2}$).</li>
+                  <li><strong>B</strong> ha una radice $0$ (non positiva/negativa), <strong>C</strong> e <strong>D</strong> non hanno soluzioni reali.</li>
+                </ol>
+                <div class="warnbox">
+                  Se nel test è prevista una sola risposta, verificate che non ci sia un refuso nel testo (capita talvolta nei materiali).
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 20 ========= -->
+          <article class="card ex" data-tags="aritmetica consecutivi multipli modularità">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 20 — Multipli in una sequenza di interi consecutivi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex20">
+                  <span class="time" id="time-ex20">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex20">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex20">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex20">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Si consideri una sequenza arbitraria di $45$ numeri interi consecutivi.
+              Qual è il numero minimo di multipli di $7$ che ci possono essere in tale sequenza?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">il numero è $6$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">il numero è $5$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">non si può rispondere: dipende dal punto iniziale</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">nessuna delle altre risposte è corretta</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">il numero è $7$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex20" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: A</span>
+                </div>
+                <ol class="steps">
+                  <li>Ogni blocco di $7$ interi consecutivi contiene esattamente un multiplo di $7$.</li>
+                  <li>$45=6\cdot 7+3$: in $45$ consecutivi ci sono sicuramente almeno $6$ multipli di $7$.</li>
+                  <li>Il “+3” può o meno includere un ulteriore multiplo: quindi i casi possibili sono $6$ oppure $7$.</li>
+                  <li>Il minimo è dunque $6$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 21 ========= -->
+          <article class="card ex" data-tags="equazioni frazionarie dominio scomposizioni cubi">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 21 — Due equazioni frazionarie (denominatori diversi)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex21">
+                  <span class="time" id="time-ex21">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex21">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex21">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex21">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Considera le equazioni
+              $$\text{A) }\frac{x^2-3x+2}{x^3+27}=0 \qquad\text{e}\qquad
+              \text{B) }\frac{x^2-3x+2}{x^3-27}=0.$$
+              Quale delle seguenti affermazioni è vera?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">le due equazioni non hanno soluzioni comuni</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">l’insieme delle soluzioni di B è incluso in quello di A</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">le due equazioni hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">le due equazioni hanno solamente una soluzione in comune</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">l’insieme delle soluzioni di A è incluso in quello di B</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex21" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Numeratore: $x^2-3x+2=(x-1)(x-2)$ ⇒ candidati $x=1,2$.</li>
+                  <li><strong>Equazione A</strong>: denominatore $x^3+27=(x+3)(x^2-3x+9)$ ⇒ si annulla per $x=-3$ (gli altri fattori non hanno zeri reali). Quindi $x=1,2$ sono ammessi.</li>
+                  <li><strong>Equazione B</strong>: denominatore $x^3-27=(x-3)(x^2+3x+9)$ ⇒ si annulla per $x=3$. Anche qui $x=1,2$ sono ammessi.</li>
+                  <li>In entrambe: soluzioni $S=\{1,2\}$ ⇒ stesso insieme di soluzioni.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 22 ========= -->
+          <article class="card ex" data-tags="potenze proprietà esponenti">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 22 — Proprietà delle potenze</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex22">
+                  <span class="time" id="time-ex22">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex22">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex22">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex22">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Il numero
+              $$\left[\frac{28^4\cdot 2^4}{(4^2)^3}\right]^4 : (7^{12})$$
+              è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$49$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$2^4\cdot 7^4$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$7^{-4}$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$49^2$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$7^2$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex22" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: D</span>
+                </div>
+                <ol class="steps">
+                  <li>Scomponi $28=2^2\cdot 7$ ⇒ $28^4=2^8\cdot 7^4$.</li>
+                  <li>Numeratore nella parentesi: $28^4\cdot 2^4=2^{8+4}\cdot 7^4=2^{12}\cdot 7^4$.</li>
+                  <li>Denominatore: $(4^2)^3=4^6=(2^2)^6=2^{12}$.</li>
+                  <li>Quindi la parentesi vale $\dfrac{2^{12}\cdot 7^4}{2^{12}}=7^4$.</li>
+                  <li>Elevando alla quarta: $(7^4)^4=7^{16}$.</li>
+                  <li>Dividi per $7^{12}$: $7^{16-12}=7^4=(7^2)^2=49^2$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 23 (DUPLICATO) ========= -->
+          <article class="card ex" data-tags="semplificazione polinomi prodotti notevoli duplicato">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 23 — (Ripetuto) Semplificazione di espressione</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex23">
+                  <span class="time" id="time-ex23">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex23">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex23">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex23">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Semplifica:
+              $$ (1-3x)(4x^3+12x^4):(-4x^3), \quad x\neq 0.$$
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$9x^2-1$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$1$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$1-9x^2$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$1-3x$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$1+9x^2-6x$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex23" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: A</span>
+                </div>
+                <ol class="steps">
+                  <li>Come nell’esercizio 2, si ottiene $9x^2-1$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 24 ========= -->
+          <article class="card ex" data-tags="equazione biquadratica secondo grado numero soluzioni">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 24 — Equazione biquadratica</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex24">
+                  <span class="time" id="time-ex24">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex24">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex24">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex24">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              L’equazione $$x^4-9x^2+14=0$$
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">ha due (e solo due) soluzioni reali distinte</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">ha quattro soluzioni reali distinte</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">ha solo soluzioni negative</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">non ha soluzioni reali</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">ha solo soluzioni positive</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex24" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>Poni $t=x^2$ (con $t\ge 0$). Ottieni $t^2-9t+14=0$.</li>
+                  <li>Scomponi: $t^2-9t+14=(t-7)(t-2)=0$.</li>
+                  <li>Quindi $t=7$ oppure $t=2$ (entrambi $\ge 0$).</li>
+                  <li>Torna a $x$: $x^2=7 \Rightarrow x=\pm\sqrt{7}$; $x^2=2 \Rightarrow x=\pm\sqrt{2}$.</li>
+                  <li>Totale: 4 soluzioni reali distinte.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 25 ========= -->
+          <article class="card ex" data-tags="problemi algebra prodotto somma">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 25 — Variazione di un prodotto</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex25">
+                  <span class="time" id="time-ex25">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex25">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex25">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex25">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Siano $A$ e $B$ due numeri naturali la cui somma è $500$.
+              Di quanto aumenta il prodotto se ciascuno di essi viene aumentato di $5$?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$10$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$25$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$2525$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$510$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$1225$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex25" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Prodotto iniziale: $AB$.</li>
+                  <li>Nuovo prodotto: $(A+5)(B+5)=AB+5A+5B+25$.</li>
+                  <li>Aumento: $(A+5)(B+5)-AB=5A+5B+25=5(A+B)+25$.</li>
+                  <li>Dato $A+B=500$: aumento $=5\cdot 500+25=2525$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 26 ========= -->
+          <article class="card ex" data-tags="prodotti notevoli telescopico">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 26 — Prodotto notevole “telescopico”</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex26">
+                  <span class="time" id="time-ex26">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex26">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex26">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex26">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Siano $a$ e $b$ due numeri reali. L’espressione
+              $$(a+b)(a-b)(a^2+b^2)(a^4+b^4)$$
+              è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$(a+b)^6(a^2-b^2)$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$a^8+b^8$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$(a+b)^7(a-b)$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$(a^7+b^7)(a-b)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$a^8-b^8$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex26" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>$(a+b)(a-b)=a^2-b^2$.</li>
+                  <li>$(a^2-b^2)(a^2+b^2)=a^4-b^4$ (ancora differenza di quadrati).</li>
+                  <li>$(a^4-b^4)(a^4+b^4)=a^8-b^8$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 27 ========= -->
+          <article class="card ex" data-tags="divisione polinomi divisibilità x2-1 radici">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 27 — Divisibilità per $x^2-1$</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex27">
+                  <span class="time" id="time-ex27">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex27">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex27">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex27">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Se il polinomio $p(x)$ è divisibile per $x^2-1$, allora:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$p(x)$ non ha radici intere</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">i numeri $1$ e $-1$ sono certamente radici di $p(x)$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">dividendo $p(x)$ per $(x+1)^2$ si ottiene resto zero</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">il numero $1$ non è radice di $p(x)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$p(x)$ è divisibile per $(x-1)^2$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex27" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>$x^2-1=(x-1)(x+1)$.</li>
+                  <li>Se $p(x)$ è divisibile per $x^2-1$, allora è divisibile sia per $(x-1)$ sia per $(x+1)$.</li>
+                  <li>Quindi $p(1)=0$ e $p(-1)=0$: $1$ e $-1$ sono radici.</li>
+                </ol>
+                <div class="warnbox">
+                  Errore tipico: pensare che la divisibilità per $(x-1)(x+1)$ implichi automaticamente anche il quadrato $(x-1)^2$ o $(x+1)^2$. Non è vero.
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 28 ========= -->
+          <article class="card ex" data-tags="secondo grado segno radici vieta discriminante">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 28 — Radici reali di segno opposto (unica risposta)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex28">
+                  <span class="time" id="time-ex28">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex28">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex28">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex28">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Quale tra le seguenti equazioni ha radici reali di segno opposto?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$-3x^2+x-3=0$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$x^2+3x-1=0$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$x^2-2x+7=0$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$x^2-9x+1=0$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$x^2-3x+1=0$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex28" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: B</span>
+                </div>
+                <ol class="steps">
+                  <li>Criterio: radici di segno opposto $\Leftrightarrow \frac{c}{a}&lt;0$ e $\Delta\ge 0$.</li>
+                  <li>Solo in <strong>B</strong> abbiamo $a=1$, $c=-1$ ⇒ $\frac{c}{a}=-1&lt;0$.</li>
+                  <li>In B: $\Delta=3^2-4\cdot 1\cdot (-1)=9+4=13&gt;0$ ⇒ due radici reali, una positiva e una negativa.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 29 ========= -->
+          <article class="card ex" data-tags="divisione polinomi teorema del resto parametro">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 29 — Divisibilità con parametro</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex29">
+                  <span class="time" id="time-ex29">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex29">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex29">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex29">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Il polinomio $P(x)=x^3-kx^2+11x-6$ è divisibile per $x-2$:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">se $k=0$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">se $k=15$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">per nessun valore di $k$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">se $k$ è dispari</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">se $k=6$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex29" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Divisibile per $x-2 \Leftrightarrow P(2)=0$ (teorema del resto).</li>
+                  <li>$P(2)=2^3-k\cdot 2^2+11\cdot 2-6=8-4k+22-6=24-4k$.</li>
+                  <li>Imponi $24-4k=0 \Rightarrow k=6$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 30 ========= -->
+          <article class="card ex" data-tags="prodotti notevoli quadrato binomio">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 30 — Quadrato di un monomio per un binomio</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex30">
+                  <span class="time" id="time-ex30">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex30">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex30">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex30">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              L’espressione
+              $$\left(-\frac13 ab^3-a^3b\right)^2$$
+              è uguale a:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$a^2b^2\left(\frac13 b^2-a^2\right)^2$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$ab\left(\frac19 b^4+a^4+\frac23 a^2b^2\right)$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$a^2b^2\left(\frac19 b^4+a^4+\frac23 a^2b^2\right)$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$a^2b^2\left(\frac19 b^4+a^4-\frac23 a^2b^2\right)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$ab\left(\frac19 b^4+a^4-\frac23 a^2b^2\right)$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex30" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Raccogli $ab$: $-\frac13 ab^3-a^3b=-ab\left(\frac13 b^2+a^2\right)$.</li>
+                  <li>Quadrato: $\left[-ab\left(\frac13 b^2+a^2\right)\right]^2=a^2b^2\left(\frac13 b^2+a^2\right)^2$.</li>
+                  <li>Espandi il quadrato del binomio:
+                    $$\left(\frac13 b^2+a^2\right)^2=\frac19 b^4+\frac23 a^2b^2+a^4.$$
+                  </li>
+                  <li>Moltiplica per $a^2b^2$ → opzione C.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 31 ========= -->
+          <article class="card ex" data-tags="disequazioni razionali denominatore sempre positivo">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 31 — Confronto tra insiemi soluzione (disequazioni)</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex31">
+                  <span class="time" id="time-ex31">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex31">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex31">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex31">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Considera le disequazioni:
+              $$\text{A) }P(x)\le 0,\qquad
+                \text{B) }\frac{P(x)}{x^2+x+1}\le 0,\qquad
+                \text{C) }\frac{P(x)}{x^2-3x+2}\le 0,$$
+              dove $P(x)$ è un polinomio di secondo grado.
+              Quale affermazione è corretta?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">B e C hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">A e C hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">A e B hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">non si può rispondere perché non si conosce $P(x)$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">A, B e C hanno lo stesso insieme di soluzioni</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex31" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: C</span>
+                </div>
+                <ol class="steps">
+                  <li>Osserva $x^2+x+1$: ha discriminante $\Delta=1-4=-3&lt;0$ e coefficiente principale positivo ⇒ $x^2+x+1&gt;0$ per ogni $x$.</li>
+                  <li>Quindi dividere per $x^2+x+1$ non cambia il segno:
+                    $$\frac{P(x)}{x^2+x+1}\le 0 \Longleftrightarrow P(x)\le 0.$$
+                  </li>
+                  <li>Per C invece il denominatore $x^2-3x+2=(x-1)(x-2)$ cambia segno e si annulla in $1,2$, quindi l’insieme soluzione in generale non coincide con A.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 32 ========= -->
+          <article class="card ex" data-tags="mcd mcm polinomi scomposizione">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 32 — MCD e MCM tra polinomi</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex32">
+                  <span class="time" id="time-ex32">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex32">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex32">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex32">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Il massimo comun divisore e il minimo comune multiplo dei polinomi
+              $$p(x)=(x+1)^2 \qquad \text{e} \qquad q(x)=x^3+1$$
+              sono, rispettivamente:
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">$x+1,\ (x+1)^3$</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">$(x+1)^2,\ (x+1)^3$</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">$x+1,\ (x+1)^3(x^2-x+1)$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">$1,\ x^3+1$</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">$x+1,\ (x+1)^2(x^2-x+1)$</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex32" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: E</span>
+                </div>
+                <ol class="steps">
+                  <li>Scomponi $q(x)=x^3+1=(x+1)(x^2-x+1)$ (somma di cubi).</li>
+                  <li>$p(x)=(x+1)^2$.</li>
+                  <li>MCD: fattori comuni con esponente minimo ⇒ $\gcd = x+1$.</li>
+                  <li>MCM: tutti i fattori con esponente massimo ⇒ $\mathrm{mcm}=(x+1)^2(x^2-x+1)$.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ========= EX 33 ========= -->
+          <article class="card ex" data-tags="disequazioni razionali denominatore sempre positivo x2+1">
+            <div class="ex-header">
+              <h3 class="ex-title">Esercizio 33 — Disequazioni con denominatore sempre positivo</h3>
+              <div class="ex-meta">
+                <div class="timer" data-timer="ex33">
+                  <span class="time" id="time-ex33">02:00</span>
+                  <button class="btn primary" data-action="toggleTimer" data-target="ex33">Avvia</button>
+                  <button class="btn danger" data-action="resetTimer" data-target="ex33">Reset</button>
+                </div>
+                <button class="btn solution" data-action="toggleSolution" data-target="sol-ex33">Svolgimento</button>
+              </div>
+            </div>
+
+            <p class="statement">
+              Considera le disequazioni:
+              $$\text{A) }P(x)&gt;0,\qquad
+                \text{B) }\frac{P(x)}{x^2+1}&gt;0,\qquad
+                \text{C) }\frac{P(x)}{x^2-1}&gt;0,$$
+              dove $P(x)$ è un polinomio di secondo grado.
+              Quale delle seguenti affermazioni è corretta?
+            </p>
+
+            <div class="options">
+              <h4>Opzioni</h4>
+              <ul class="opt-list">
+                <li class="opt"><span class="badge">A</span><div class="txt">A e B hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">B</span><div class="txt">A e C hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">C</span><div class="txt">non si può rispondere perché non si conosce $P(x)$</div></li>
+                <li class="opt"><span class="badge">D</span><div class="txt">B e C hanno lo stesso insieme di soluzioni</div></li>
+                <li class="opt"><span class="badge">E</span><div class="txt">A, B e C hanno lo stesso insieme di soluzioni</div></li>
+              </ul>
+            </div>
+
+            <div id="sol-ex33" class="solution-wrap">
+              <div class="solution-box">
+                <div class="answer">
+                  <span class="tag">Risposta corretta: A</span>
+                </div>
+                <ol class="steps">
+                  <li>$x^2+1&gt;0$ per ogni $x\in\mathbb{R}$.</li>
+                  <li>Quindi $\dfrac{P(x)}{x^2+1}&gt;0 \Longleftrightarrow P(x)&gt;0$ (nessun cambio di segno e nessuna esclusione dal dominio).</li>
+                  <li>In C invece il denominatore $x^2-1=(x-1)(x+1)$ cambia segno e si annulla in $\pm1$ ⇒ l’insieme soluzione in generale differisce da A.</li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ----------------------------
+    // Tabs
+    // ----------------------------
+    const btnTeoria = document.getElementById('btn-teoria');
+    const btnEsercizi = document.getElementById('btn-esercizi');
+    const tabTeoria = document.getElementById('tab-teoria');
+    const tabEsercizi = document.getElementById('tab-esercizi');
+
+    function setTab(which){
+      const teoria = which === 'teoria';
+      btnTeoria.setAttribute('aria-selected', teoria ? 'true':'false');
+      btnEsercizi.setAttribute('aria-selected', teoria ? 'false':'true');
+      tabTeoria.classList.toggle('active', teoria);
+      tabEsercizi.classList.toggle('active', !teoria);
+      // migliora la resa MathJax al cambio scheda
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise();
+    }
+    btnTeoria.addEventListener('click', () => setTab('teoria'));
+    btnEsercizi.addEventListener('click', () => setTab('esercizi'));
+
+    // ----------------------------
+    // Search / filter
+    // ----------------------------
+    const searchInput = document.getElementById('searchInput');
+    const exList = document.getElementById('exList');
+
+    function normalize(s){
+      return (s || '').toLowerCase().trim();
+    }
+    function filterExercises(){
+      const q = normalize(searchInput.value);
+      const items = exList.querySelectorAll('.ex');
+      items.forEach(it => {
+        const tags = normalize(it.getAttribute('data-tags'));
+        const text = normalize(it.innerText);
+        const show = !q || tags.includes(q) || text.includes(q);
+        it.style.display = show ? '' : 'none';
+      });
+    }
+    searchInput?.addEventListener('input', filterExercises);
+
+    // ----------------------------
+    // Per-exercise timers (2:00)
+    // ----------------------------
+    const timers = {}; // { id: {left, running, handle} }
+
+    function formatTime(sec){
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    }
+
+    function initTimer(id){
+      if (timers[id]) return;
+      timers[id] = { left: 120, running: false, handle: null };
+      const el = document.getElementById('time-' + id);
+      if (el) el.textContent = '02:00';
+    }
+
+    function tick(id){
+      const t = timers[id];
+      const el = document.getElementById('time-' + id);
+      if (!t || !el) return;
+
+      t.left = Math.max(0, t.left - 1);
+      el.textContent = formatTime(t.left);
+
+      // feedback visivo su LIM
+      const timerBox = document.querySelector(`.timer[data-timer="${id}"]`);
+      if (timerBox){
+        if (t.left <= 10 && t.left > 0) timerBox.style.borderColor = 'rgba(180,83,9,.55)';
+        if (t.left === 0) timerBox.style.borderColor = 'rgba(220,38,38,.55)';
+      }
+
+      if (t.left === 0){
+        clearInterval(t.handle);
+        t.handle = null;
+        t.running = false;
+        const btn = document.querySelector(`button[data-action="toggleTimer"][data-target="${id}"]`);
+        if (btn) btn.textContent = 'Avvia';
+      }
+    }
+
+    function toggleTimer(id){
+      initTimer(id);
+      const t = timers[id];
+      const btn = document.querySelector(`button[data-action="toggleTimer"][data-target="${id}"]`);
+      if (!t) return;
+
+      if (!t.running){
+        t.running = true;
+        if (btn) btn.textContent = 'Pausa';
+        t.handle = setInterval(() => tick(id), 1000);
+      } else {
+        t.running = false;
+        if (btn) btn.textContent = 'Avvia';
+        clearInterval(t.handle);
+        t.handle = null;
+      }
+    }
+
+    function resetTimer(id){
+      initTimer(id);
+      const t = timers[id];
+      const el = document.getElementById('time-' + id);
+      const btn = document.querySelector(`button[data-action="toggleTimer"][data-target="${id}"]`);
+      const timerBox = document.querySelector(`.timer[data-timer="${id}"]`);
+
+      if (t.handle) clearInterval(t.handle);
+      t.handle = null;
+      t.running = false;
+      t.left = 120;
+
+      if (el) el.textContent = '02:00';
+      if (btn) btn.textContent = 'Avvia';
+      if (timerBox) timerBox.style.borderColor = 'var(--border)';
+    }
+
+    // ----------------------------
+    // Solutions toggles
+    // ----------------------------
+    function toggleSolution(id){
+      const box = document.getElementById(id);
+      if (!box) return;
+      box.classList.toggle('open');
+      // Re-typeset only when opening (or always safe)
+      if (window.MathJax?.typesetPromise) MathJax.typesetPromise([box]);
+    }
+
+    // ----------------------------
+    // Event delegation for buttons
+    // ----------------------------
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      const target = btn.getAttribute('data-target');
+
+      if (action === 'toggleTimer') toggleTimer(target);
+      if (action === 'resetTimer') resetTimer(target);
+      if (action === 'toggleSolution') toggleSolution(target);
+    });
+
+    // Initialize timers for all cards (so the time shows immediately)
+    document.querySelectorAll('.timer[data-timer]').forEach(t => initTimer(t.getAttribute('data-timer')));
+  </script>
+</body>
+</html>
